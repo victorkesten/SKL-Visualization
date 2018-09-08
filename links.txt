@@ -1,0 +1,22 @@
+https://github.com/denisemauldin/d3-timeline
+https://github.com/jiahuang/d3-timeline
+https://stackoverflow.com/questions/39760757/d3-scatterplot-from-all-circles-to-different-shapes
+http://bl.ocks.org/WilliamQLiu/76ae20060e19bf42d774
+
+
+https://bl.ocks.org/mbostock/3887118
+http://bl.ocks.org/rkirsling/33a9e350516da54a5d4f
+https://bl.ocks.org/mbostock/3884955
+https://www.epochconverter.com/
+https://charts.animateddata.co.uk/uktemperaturelines/
+http://bl.ocks.org/marufbd/7191340
+
+
+
+Double Line graph
+  - Förslag/Diskussions
+  - On hover, få mer Detaljer
+
+
+Y Förslag.
+X Tid.

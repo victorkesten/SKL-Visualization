@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/scatterplot.css">
+    <title>Scatterplot Sample</title>
+  </head>
+  <body>
+
+<!-- https://stackoverflow.com/questions/39760757/d3-scatterplot-from-all-circles-to-different-shapes -->
+
+
+  <div id="meeting_statistics">
+    Diskussions Område: Vad är viktigast för att forskning om digitalisering ska göras tillgänglig för skolan?<br>
+    Antal Inbjudna: 119<br>
+    Antal Förslag: 25<br>
+    Antal Diskussion: 9<br>
+  </div>
+  <div id="scatter_plot_area">
+  </div>
+  <div id="detail_box">
+  </div>
+    <script src="/js/libraries/jquery-3.2.1.min.js"></script>
+    <script src="/js/libraries/d3.v3.min.js"></script>
+    <script src="/js/scatterplot.js"></script>
+    <script>
+      scatterplot_create();
+    </script>
+  </body>
+</html>
