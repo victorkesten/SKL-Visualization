@@ -13,3 +13,18 @@ body {
 .dot {
   stroke: #000;
 }
+
+#disabled {
+    fill: transparent !important;
+}
+
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+#nav_bar{
+  /* background-color: #563d7c; */
+  background-color: #5c5b97;
+}

@@ -1,0 +1,31 @@
+#nav_bar_top{
+  background-color: #5c5b97;
+}
+
+#content_container {
+  max-width: 100%;
+}
+
+#bubbles_svg_area{
+  width: 100%;
+  min-height: 540px;
+  /* height: 540px; */
+  font-family: sans-serif;
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+#menu{
+  background-color: lightgrey;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+#info_box{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
