@@ -1,14 +1,28 @@
+
 #nav_bar_top{
   background-color: #5c5b97;
+  /* height: 7vh; */
+  /* height: 10%; */
+}
+
+#nav_bar_bot {
+  /* height: 12%; */
 }
 
 #content_container {
   max-width: 100%;
+  /* height: calc(100vh - 22%); */
 }
 
+#main_box {
+  /* min-height:500px; */
+  height: 100%;
+}
 #bubbles_svg_area{
   width: 100%;
   min-height: 540px;
+  height: auto;
+  /* height: 80vh; */
   /* height: 540px; */
   font-family: sans-serif;
   font-size: 10px;
@@ -28,4 +42,13 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+
+#search_bar {
+  padding: .15rem .5rem;
+}
+
+.view{
+  cursor: pointer;
 }

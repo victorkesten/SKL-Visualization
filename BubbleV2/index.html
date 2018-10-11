@@ -17,26 +17,29 @@
 
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item active view" id="view_0">
+              <a class="nav-link" onclick="change_view(0)">Översikt <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Link</a>
+            <li class="nav-item view" id="view_1">
+              <a class="nav-link" onclick="change_view(1)">Möten</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Reset</a>
+            <li class="nav-item view" id="view_2">
+              <a class="nav-link" onclick="change_view(2)">Fokus Områden</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item view" id="view_3">
+              <a class="nav-link" onclick="change_view(3)">Karta</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
               <div class="dropdown-menu" aria-labelledby="dropdown03">
                 <a class="dropdown-item" href="#">Action</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
-            </li>
+            </li> -->
           </ul>
           <form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Search">
+            <input class="form-control" id="search_bar" type="text" placeholder="Sök...">
           </form>
         </div>
       </nav>
@@ -60,16 +63,19 @@
               <a class="nav-link" href="#">Results</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Choropleth</a>
+              <!-- <a class="nav-link disabled" href="#">Reset</a> -->
+              <br>
+              <a href="#" class="btn btn-primary">Reset</a>
+
             </li>
           </ul>
         </div>
-        <div class="col-10 px-0">
+        <div class="col-10 px-0" id="main_box">
           <div id="info_box">
             <div class="card" style="width: 18rem;">
               <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
+              <div class="card-header my-0"><h5 class="card-title my-0">#ett-förslag-här</h5></div>
               <div class="card-body">
-                <h5 class="card-title">#ett-förslag-här</h5>
                 <h6>Almedalen &rarr; Område 1 &rarr; Fråga 1</h6>
                 <p class="card-text">Snabb beskrivning av förslaget</p>
 
@@ -81,19 +87,22 @@
                 <span class="badge badge-pill badge-info">Info</span>
                 <span class="badge badge-pill badge-light">Light</span>
                 <span class="badge badge-pill badge-dark">Dark</span>
-                <br><br>
-                <a href="#" class="btn btn-primary">Aktivitet</a>
+
               </div>
+              <div class="card-footer text-muted ">
+              <a href="#" class="btn btn-primary">Aktivitet</a>
+            </div>
             </div>
           </div>
-          <svg id="bubbles_svg_area" width="960" height="540"></svg>
-
+          <div>
+            <svg id="bubbles_svg_area" width="960" height="540"></svg>
+          </div>
         </div>
       </div>
     </div>
 
-  <nav id="nav_bar_bot" class="navbar bottom navbar-expand-sm navbar-light bg-light">
-          <a class="navbar-brand" href="#">Victor Kesten</a>
+  <nav id="nav_bar_bot" class="navbar bottom navbar-expand-sm navbar-light py-0 bg-light">
+          <a class="navbar-brand" href="http://www.victorkesten.com">Victor Kesten</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -118,10 +127,12 @@
               </li>
             </ul>
           </div>
-          <img src="/resources/SKL_logga.png"/ style="width:10%;">
-
-          <img src="/resources/känneteckenskoldigiplan.png"/ style="margin-left:3%;width:15%;">
-
+          <!-- <a href="https://skl.se/"> -->
+            <img class="my-1" src="/resources/SKL_logga.png"/ style="width:10%;">
+          <!-- </a> -->
+          <!-- <a href="http://skoldigiplan.se"> -->
+            <img src="/resources/känneteckenskoldigiplan.png"/ href="http://skoldigiplan.se" style="margin-left:3%;width:15%;">
+          <!-- </a> -->
         </nav>
 
   </body>
@@ -133,5 +144,14 @@
   <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 
   <script src="/BubbleV2/js/bubbles.js"></script>
-  <script>create_bubbles();</script>
+  <script>
+    // create_bubbles();
+    // prepare_json(0);
+    // prepare_json(1);
+    read_meeting_data();
+    omrade_view();
+
+  </script>
 <html>
+<!--
+<img style="width:70%;height:auto;margin-left:12%;" src="/BubbleV2/resources/SWE-Map.svg" /> -->
