@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Bubbles V2</title>
-    <link rel="stylesheet" type="text/css" href="/BubbleV2/css/bubbles.css">
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/BubbleV2/css/bubbles.css">
 
   </head>
   <body>
@@ -17,10 +17,10 @@
 
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active view" id="view_0">
+            <li class="nav-item view" id="view_0">
               <a class="nav-link" onclick="change_view(0)">Översikt <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item view" id="view_1">
+            <li class="nav-item active view" id="view_1">
               <a class="nav-link" onclick="change_view(1)">Möten</a>
             </li>
             <li class="nav-item view" id="view_2">
@@ -50,22 +50,47 @@
           <h3 style="margin-top:5px;">Options</h3>
           <hr class="pl-0 mb-0">
           <ul class="nav flex-column">
+            <!-- <li class="nav-item"> -->
+              <!-- <a class="nav-link active" href="#">Sort</a> -->
+            <!-- </li> -->
+            <!-- <br> -->
             <li class="nav-item">
-              <a class="nav-link active" href="#">Sort</a>
+              <a class="nav-header" href="#">Filter</a>
+              <!-- <span class="badge badge-pill badge-primary">Primary</span> -->
+              <div id="filter_pills">
+                <h6>Område</h6>
+                <span class="badge badge-pill badge-primary">Digital Kompetens</span>
+                <span class="badge badge-pill badge-primary">Likvärdig Tillgång / Användning</span>
+                <span class="badge badge-pill badge-primary">Forskning och Uppföljning</span>
+                <br><br><h6>Tidsspann</h6>
+                <span class="badge badge-pill badge-primary">Kort</span>
+                <span class="badge badge-pill badge-primary">Medel</span>
+                <span class="badge badge-pill badge-primary">Lång</span>
+                <br><br>
+                <h6>Aktörer</h6>
+                <span class="badge badge-pill badge-primary">Akt1</span>
+                <span class="badge badge-pill badge-primary">Akt2</span>
+                <span class="badge badge-pill badge-primary">Akt3</span>
+                <span class="badge badge-pill badge-primary">Akt4</span>
+              </div>
             </li>
+            <!-- <li class="nav-item"> -->
+              <!-- </li> -->
+              <!-- <a class="nav-link" href="#">Tags</a> -->
+              <br>
             <li class="nav-item">
-              <a class="nav-link" href="#">Filter</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Tags</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Results</a>
+              <a class="nav-header" href="#">Färg</a>
+              <br>
+              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Resultat</a>
+              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Område</a>
+              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Möte</a>
+              <a href="#" class="p-1 mt-2 btn btn-primary btn-sm color-button">Fråga</a>
+
             </li>
             <li class="nav-item">
               <!-- <a class="nav-link disabled" href="#">Reset</a> -->
               <br>
-              <a href="#" class="btn btn-primary">Reset</a>
+              <a href="#" onclick="check_me()" class="btn btn-dark">Återställ</a>
 
             </li>
           </ul>
@@ -74,23 +99,33 @@
           <div id="info_box">
             <div class="card" style="width: 18rem;">
               <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
-              <div class="card-header my-0"><h5 class="card-title my-0">#ett-förslag-här</h5></div>
-              <div class="card-body">
-                <h6>Almedalen &rarr; Område 1 &rarr; Fråga 1</h6>
-                <p class="card-text">Snabb beskrivning av förslaget</p>
+              <div class="card-header my-0">
+                <h5 id="card_header" class="card-title my-0">#ett-förslag-här<span style="float:right;cursor:pointer;"><button type="button" class="close" aria-label="Close"><span onclick="hide_infobox()"aria-hidden="true">&times;</span></button></span></h5>
 
-                <span class="badge badge-pill badge-primary">Primary</span>
-                <span class="badge badge-pill badge-secondary">Secondary</span>
-                <span class="badge badge-pill badge-success">Success</span>
-                <span class="badge badge-pill badge-danger">Danger</span>
-                <span class="badge badge-pill badge-warning">Warning</span>
-                <span class="badge badge-pill badge-info">Info</span>
-                <span class="badge badge-pill badge-light">Light</span>
-                <span class="badge badge-pill badge-dark">Dark</span>
+              </div>
+
+              <div class="card-body">
+                <h6 id="card_meeting_tree">Almedalen &rarr; Område 1 &rarr; Fråga 1</h6>
+                <p id="card_description" class="card-text">Snabb beskrivning av förslaget</p>
+
+                <div id="pills">
+                  <span class="badge badge-pill badge-primary">Primary</span>
+                  <span class="badge badge-pill badge-primary">Tag#2</span>
+                  <span class="badge badge-pill badge-primary">Tag#3</span>
+                  <span class="badge badge-pill badge-primary">Tag#4</span>
+
+                  <!-- <span class="badge badge-pill badge-secondary">Secondary</span>
+                  <span class="badge badge-pill badge-success">Success</span>
+                  <span class="badge badge-pill badge-danger">Danger</span>
+                  <span class="badge badge-pill badge-warning">Warning</span>
+                  <span class="badge badge-pill badge-info">Info</span>
+                  <span class="badge badge-pill badge-light">Light</span>
+                  <span class="badge badge-pill badge-dark">Dark</span> -->
+                </div>
 
               </div>
               <div class="card-footer text-muted ">
-              <a href="#" class="btn btn-primary">Aktivitet</a>
+              <a id="card_activity" href="#" class="btn btn-primary">Aktivitet</a>
             </div>
             </div>
           </div>

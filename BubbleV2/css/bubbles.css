@@ -52,3 +52,37 @@
 .view{
   cursor: pointer;
 }
+
+.badge {
+  font-size: 70% !important;
+  cursor:pointer;
+  transition: 0.2s;
+}
+
+.badge:hover{
+  background-color: #0056b3;
+}
+
+.badge_outline_primary {
+  border: 1px solid #007bff;
+  color: #007bff;
+  background-color: inherit;
+}
+.badge_outline_primary:hover{
+  background-color: inherit;
+  
+}
+
+.tooltip_bubble {
+    position: absolute;
+    text-align: center;
+    /* width: 60px; */
+    /* height: 28px; */
+    padding: 2px;
+    font: 12px sans-serif;
+    /* background: lightsteelblue; */
+    background: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    pointer-events: none;
+}
