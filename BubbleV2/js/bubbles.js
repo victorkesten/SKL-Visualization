@@ -104,7 +104,7 @@ function prepare_json(option){
       .size([width/sections_on_screen, height/sections_on_screen]);
       // .padding(1.5);
 
-  d3.csv("/BubbleV2/data/almedalen.csv", function(error,data){
+  d3.csv("data/almedalen.csv", function(error,data){
     if(error) throw error;
     var root = create_hierarchy(data,option)
     // console.log(root);
@@ -324,7 +324,7 @@ function hide_infobox(){
 
 function read_meeting_data(){
 
-  d3.csv("/BubbleV2/data/almedalen_details.csv", function(d){
+  d3.csv("data/almedalen_details.csv", function(d){
     meeting_data[d.tag] = d;
     return d;
   }, function(error,data){
