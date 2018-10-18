@@ -284,7 +284,6 @@ function data_order(data,option){
     } else {
       return data;
     }
-
     for(var i = 0; i < data.length; i++){
       var identifier = data[i].id;
       if(identifier.match(match_string)){
@@ -294,7 +293,6 @@ function data_order(data,option){
   } else if (view_option == 0){
     new_data = data;
   }
-
   return new_data;
 }
 
