@@ -80,9 +80,12 @@ function change_view(option){
   if(option==0){
     // oversikt_view();
     groupBubbles();
+    // filter_badge();
   } else if (option == 1){
     // omrade_view();
     splitBubbles();
+    // filter_badge();
+
   }
 }
 
@@ -243,6 +246,26 @@ function splitBubbles() {
   simulation.alpha(1).restart();
 }
 
+function filter_bubbles(d) {
+  console.log(d);
+  for(var i = 0; i < filtered_index.length; i++){
+    for(var j = 0; j < filtered_index[i].length; j++){
+      // console.log(j);
+      // console.log(filtered_index[i].length);
+      // console.log(filtered_index[i][j]);
+      if( filtered_index[i][j] == 1 && d.omrade == option){
+        return filterArea[1000].x;
+      }
+    }
+  }
+  // if(view_option == 0){
+  //   return groupBubbles();
+  // } else if (view_option == 1){
+  //   return splitBubbles();
+  // }
+  return d.x;
+}
+
 function omrade_view(d){
   return omradeCenters[d.omrade].x;
 }
@@ -265,6 +288,10 @@ function display(error, data) {
   chart('#vis', data);
 }
 
+var filtered_index = [[0,0,0,0]];
+
+var option = 0;
+var area = 0;
 
 // UI Stuff
 
@@ -278,7 +305,33 @@ function filter_badge(d){
   var text = element.text();
 
   if(text.match("Digital Kompetens")){
+    option = 0;
+    area = 0;
+  } else if(text.match("Likvärdig Tillgång / Användning")){
+    option = 1;
+    area = 0;
+  } else if(text.match("Forskning och Uppföljning")){
+    option = 2;
+    area = 0;
+  } else if(text.match("Annat")){
+    option = 3;
+    area = 0;
+  }
 
+  if(filtered_index[area][option] == 0){
+    filtered_index[area][option] = 1;
+    // console.log(filtered_index);
+    simulation.force('x', d3.forceX().strength(forceStrength).x(filter_bubbles));
+    simulation.alpha(1).restart();
+  } else {
+    filtered_index[area][option] = 0;
+    if(view_option == 0){
+      groupBubbles();
+      // filter_bubbles();
+    } else if (view_option == 1){
+      splitBubbles();
+      // filter_bubbles();
+    }
   }
 
   if(element.hasClass("badge_outline_primary")){
