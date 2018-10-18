@@ -11,7 +11,7 @@ var omradeCenters = {
 };
 
 var filterArea = {
-  -1 : {x: -10000, y: -10000}
+  1000 : {x: -10000, y: -10000}
 };
 
 var zoom = d3.zoom()
@@ -278,7 +278,7 @@ function filter_badge(d){
   var text = element.text();
 
   if(text.match("Digital Kompetens")){
-    
+
   }
 
   if(element.hasClass("badge_outline_primary")){
