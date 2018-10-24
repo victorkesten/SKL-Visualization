@@ -1,5 +1,6 @@
 var width = 960;
-var height = 540;
+// var height = 540;
+var height = 400;
 
 var center = { x: width / 2, y: height / 2 };
 
@@ -7,7 +8,8 @@ var omradeCenters = {
   0: { x: width / 3, y: height / 2 },
   1: { x: width / 2, y: height / 2 },
   2: { x: 2 * width / 3, y: height / 2 },
-  3: { x:0, y:0}
+  3: { x:0, y:0},
+  'filter' : {x: -10000, y:-10000}
 };
 
 var filterArea = {
@@ -44,6 +46,7 @@ var view_option = 0;
 // nodes and other variables.
 var damper = 0.102;
 var bubbles = null;
+var filtered_bubbles = null;
 var nodes = [];
 
 svg.call(zoom);
@@ -74,19 +77,10 @@ var simulation = d3.forceSimulation()
 simulation.stop();
 
 function change_view(option){
-  $("#view_"+option).addClass("active");
   $("#view_"+view_option).removeClass("active");
+  $("#view_"+option).addClass("active");
   view_option = option;
-  if(option==0){
-    // oversikt_view();
-    groupBubbles();
-    // filter_badge();
-  } else if (option == 1){
-    // omrade_view();
-    splitBubbles();
-    // filter_badge();
-
-  }
+  move_bubbles(option);
 }
 
 function createNodes(rawData) {
@@ -118,7 +112,8 @@ function createNodes(rawData) {
   return myNodes;
 }
 
-
+//https://github.com/vlandham/bubble_chart_v4
+//http://vallandingham.me//bubble_charts_with_d3v4.html
 function chart(selector, rawData) {
   var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
 
@@ -140,6 +135,7 @@ function chart(selector, rawData) {
   // Initially, their radius (r attribute) will be 0.
   var bubblesE = bubbles.enter().append('circle')
     .classed('bubble', true)
+    .classed('no-filter',true)
     .attr('r', 0)
     // .attr('fill', function (d) { return fillColor(d.group); })
     // .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
@@ -156,13 +152,16 @@ function chart(selector, rawData) {
   bubbles.transition()
     .duration(2000)
     .attr('r', function (d) { return d.radius; });
-    simulation.nodes(nodes);
+  simulation.nodes(nodes);
 
   // Set initial layout to single group.
-  groupBubbles();
+  // groupBubbles();
+  move_bubbles(0);
+
 
   d3.selectAll(".badge")
-    .on("click",function(){
+    .on("click",function(d){
+      // console.log(d);
       filter_badge(this);
       return "";
     });
@@ -227,43 +226,23 @@ function ticked() {
     .attr('cy', function (d) { return d.y; });
 }
 
-function groupBubbles() {
-  // @v4 Reset the 'x' force to draw the bubbles to the center.
-  simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
+function move_bubbles(opt){
+  if(opt == 0){
+    // @v4 Reset the 'x' force to draw the bubbles to the center.
+    simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
 
-  // @v4 We can reset the alpha value and restart the simulation
-  simulation.alpha(1).restart();
-}
+    // @v4 We can reset the alpha value and restart the simulation
+    simulation.alpha(1).restart();
+  } else if (opt == 1){
+    // showYearTitles();
+    show_omrade_titles();
 
-function splitBubbles() {
-  // showYearTitles();
-  show_omrade_titles();
+    // @v4 Reset the 'x' force to draw the bubbles to their year centers
+    simulation.force('x', d3.forceX().strength(forceStrength).x(omrade_view));
 
-  // @v4 Reset the 'x' force to draw the bubbles to their year centers
-  simulation.force('x', d3.forceX().strength(forceStrength).x(omrade_view));
-
-  // @v4 We can reset the alpha value and restart the simulation
-  simulation.alpha(1).restart();
-}
-
-function filter_bubbles(d) {
-  console.log(d);
-  for(var i = 0; i < filtered_index.length; i++){
-    for(var j = 0; j < filtered_index[i].length; j++){
-      // console.log(j);
-      // console.log(filtered_index[i].length);
-      // console.log(filtered_index[i][j]);
-      if( filtered_index[i][j] == 1 && d.omrade == option){
-        return filterArea[1000].x;
-      }
-    }
+    // @v4 We can reset the alpha value and restart the simulation
+    simulation.alpha(1).restart();
   }
-  // if(view_option == 0){
-  //   return groupBubbles();
-  // } else if (view_option == 1){
-  //   return splitBubbles();
-  // }
-  return d.x;
 }
 
 function omrade_view(d){
@@ -279,6 +258,8 @@ function moveToCenter(alpha) {
 }
 
 
+
+// TODO: This should be a link to the data_parse eventually.
 d3.csv('data/almedalen_details.csv', display);
 
 function display(error, data) {
@@ -288,51 +269,40 @@ function display(error, data) {
   chart('#vis', data);
 }
 
-var filtered_index = [[0,0,0,0]];
 
+// Each int corresponds to an active/deactive filter.
+var filters = [0,0,0,0,0,0];
 var option = 0;
 var area = 0;
 
 // UI Stuff
 
-function hide_infobox(){
-  $("#info_box").css("display","none");
-}
 
+function filter_bubbles(d) {
+  // console.log(d);
+  // console.log(all_bubbles);
+  for(var i = 0; i < filters.length; i++){
+    // for(var j = 0; j < filtered_index[i].length; j++){
+      // console.log(j);
+      // console.log(filtered_index[i].length);
+      // console.log(filtered_index[i][j]);
+      if( filters[i] == 1 && d.omrade == option){
+        console.log(d);
+        return filterArea[1000].x;
+    }
+  }
+  // if(view_option == 0){
+  //   return groupBubbles();
+  // } else if (view_option == 1){
+  //   return splitBubbles();
+  // }
+  return d.x;
+}
 
 function filter_badge(d){
   var element = $(d);
   var text = element.text();
-
-  if(text.match("Digital Kompetens")){
-    option = 0;
-    area = 0;
-  } else if(text.match("Likvärdig Tillgång / Användning")){
-    option = 1;
-    area = 0;
-  } else if(text.match("Forskning och Uppföljning")){
-    option = 2;
-    area = 0;
-  } else if(text.match("Annat")){
-    option = 3;
-    area = 0;
-  }
-
-  if(filtered_index[area][option] == 0){
-    filtered_index[area][option] = 1;
-    // console.log(filtered_index);
-    simulation.force('x', d3.forceX().strength(forceStrength).x(filter_bubbles));
-    simulation.alpha(1).restart();
-  } else {
-    filtered_index[area][option] = 0;
-    if(view_option == 0){
-      groupBubbles();
-      // filter_bubbles();
-    } else if (view_option == 1){
-      splitBubbles();
-      // filter_bubbles();
-    }
-  }
+  var _filter = 0;
 
   if(element.hasClass("badge_outline_primary")){
     element.removeClass("badge_outline_primary");
@@ -341,6 +311,32 @@ function filter_badge(d){
     element.removeClass("badge-primary");
     $(d).addClass("badge_outline_primary");
   }
+
+  if(text.match("Digital Kompetens")){
+    _filter = 0;
+  } else if(text.match("Likvärdig Tillgång / Användning")){
+    _filter = 1;
+  } else if(text.match("Forskning och Uppföljning")){
+    _filter = 2;
+  } else if(text.match("Annat")){
+    _filter = 3;
+  }
+  filters[_filter] = 1 - filters[_filter];  // Activated Filters toggle
+
+    // Need to filter here before we call the simulation function.
+    // filter
+  var all_bubbles = nodes;
+  console.log(all_bubbles);
+
+  // I think bubbles is the variable I have to modify.
+
+  // This should eventually be removed
+  // And the simulation should still only be done in
+  // move_bubbles(view_option)
+  // Only with new and updated bubbles.
+  // simulation.force('x', d3.forceX().strength(forceStrength).x(filter_bubbles));
+  // simulation.alpha(1).restart();
+  move_bubbles(view_option);
 }
 
 
@@ -374,4 +370,8 @@ function mote_color(d){
 
 function show_omrade_titles(){
 
+}
+
+function hide_infobox(){
+  $("#info_box").css("display","none");
 }
