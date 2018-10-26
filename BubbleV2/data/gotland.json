@@ -1,0 +1,724 @@
+{
+    "invite_tickets":{
+        "open":65,
+        "closed":3
+    },
+    "uid":"a757063e-a44a-4fb7-a986-1c76a5fcc235",
+    "created":1538655261,
+    "title":"Regionalt R\u00e5dslag | Gotland",
+    "start_time":1538655918,
+    "type_name":"Meeting",
+    "manifest":{
+        "DiscussionPost":0,
+        "Proposal":27,
+        "Poll":4,
+        "InviteTicket":68,
+        "AgendaItem":6
+    },
+    "participants":[
+        "madelene-johansson",
+        "admin",
+        "neptunus",
+        "titan",
+        "ganymede",
+        "annika-agelii-genlott",
+        "ioo",
+        "jan-ostre",
+        "callisto",
+        "laila-borwall",
+        "anders",
+        "tenneh",
+        "saturnus"
+    ],
+    "end_time":null,
+    "path":"/radslag-gotland",
+    "contents":[
+        {
+            "uid":"5edf79ea-3e53-4f56-a5a9-2a3a4cc99874",
+            "created":1538655786,
+            "title":"1) Hur kan samh\u00e4llet bidra till en bra och likv\u00e4rdig utveckling av digital kompetens f\u00f6r alla inom skolv\u00e4sendet?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":6,
+                "Poll":1
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for",
+            "contents":[
+                {
+                    "text":"fungerande samband mellan h\u00e5rdvara och mjukvara, det m\u00e5ste var relativt enkelt och fungera.\r\nG\u00e4rna att det \u00e4r h\u00e5llbart \u00f6ver tid.\r\nCentala krav p\u00e5 kompablitet vid upphandlingar.\n#TidMedel #SKL #Kammarkollegiet",
+                    "uid":"24229fae-d0ff-4f6b-9a59-9b6e239857bf",
+                    "contents":[
+
+                    ],
+                    "created":1539938595,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/24229fae-d0ff-4f6b-9a59-9b6e239857bf",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "skl",
+                        "kammarkollegiet",
+                        "callisto-2"
+                    ],
+                    "aid":"callisto-2"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r nationella satsningar p\u00e5 kompetensutveckling som \u00e4r forskningsbaserad.\n#TidMedel #Universitet_och_h\u00f6gskoler\u00e5det #Skolverket",
+                    "uid":"9d86fbf9-88a3-4849-99d1-b92ed877873d",
+                    "contents":[
+
+                    ],
+                    "created":1539938662,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/9d86fbf9-88a3-4849-99d1-b92ed877873d",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "universitet_och_h\u00f6gskoler\u00e5det",
+                        "skolverket",
+                        "callisto-3"
+                    ],
+                    "aid":"callisto-3"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Utbildning - p\u00e5 alla plan, l\u00e4rarutbildning, kursplaner osv\r\nEn kurs i digitalisering, med ett visst antal po\u00e4ng f\u00f6r l\u00e4rarstuderande.\r\nKunskapsutveckling f\u00f6r befintliga pedagoger och skolledare.\n#TidL\u00e5ng #Departement #L\u00e4rarutbildningarna",
+                    "uid":"b95953df-307f-4085-ba2e-deafc3cbc178",
+                    "contents":[
+
+                    ],
+                    "created":1539940992,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/b95953df-307f-4085-ba2e-deafc3cbc178",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ioo"
+                    ],
+                    "tags":[
+                        "tidl\u00e5ng",
+                        "departement",
+                        "l\u00e4rarutbildningarna",
+                        "ioo-1"
+                    ],
+                    "aid":"ioo-1"
+                },
+                {
+                    "uid":"8fca5334-92de-4e14-9131-42d0124883f3",
+                    "created":1540210705,
+                    "title":"Beslut p1",
+                    "start_time":1540210760,
+                    "type_name":"Poll",
+                    "manifest":{
+                        "Vote":1
+                    },
+                    "poll_plugin":"sorted_schulze",
+                    "end_time":null,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/beslut-p1",
+                    "contents":[
+
+                    ]
+                },
+                {
+                    "text":"St\u00f6d med infrastruktur f\u00f6r likv\u00e4rdighet, fiber, 1-1 utrustning att tillg\u00e5. F\u00f6r att utj\u00e4mna skillnader i regionen.\r\n#TidMedel #Regionen #Regeringen",
+                    "uid":"d5a87f3c-8be8-41fe-a599-4ed513fa94c5",
+                    "contents":[
+
+                    ],
+                    "created":1539938361,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/d5a87f3c-8be8-41fe-a599-4ed513fa94c5",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "regionen",
+                        "regeringen",
+                        "callisto-1"
+                    ],
+                    "aid":"callisto-1"
+                },
+                {
+                    "text":"Kompetensh\u00f6jning \r\n- Personal\r\nV\u00e5ra l\u00e4rare f\u00e5r inte ha begr\u00e4nsande skygglappar som begr\u00e4nsar elevernas kreativitet. \r\n\r\nVi beh\u00f6ver mer kunskap utifr\u00e5n forskning.\r\n\r\nIntroducera ett nytt begrepp: \"Digitala Nyanl\u00e4nda\" - en invandrare i den digitala v\u00e4rlden.\n#TidMedel #L\u00e4ros\u00e4ten #Regionen",
+                    "uid":"eee8be2f-2637-4768-8d24-d90db2e0d00f",
+                    "contents":[
+
+                    ],
+                    "created":1539941436,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/eee8be2f-2637-4768-8d24-d90db2e0d00f",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "titan"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "l\u00e4ros\u00e4ten",
+                        "regionen",
+                        "titan-2"
+                    ],
+                    "aid":"titan-2"
+                },
+                {
+                    "text":"Kompetensh\u00f6jning \r\n- V\u00e5rdnadshavare\r\n Skapa samf\u00f6rst\u00e5nd kring vad digitalisering inneb\u00e4r och vilka verktyg som kan anv\u00e4ndas.\r\n \r\n- F\u00f6r\u00e4ldrautbildning i samband med att eleverna f\u00e5r sin padda.\r\n- Sk\u00e4rmtid, vad f\u00e5r en g\u00f6ra p\u00e5 sin sk\u00e4rm, moral, etik, k\u00e4llkritik. Vad s\u00e4ger forskningen?\n#TidMedel #L\u00e4ros\u00e4ten #Regionen",
+                    "uid":"f2690dd4-5633-4ca1-bd76-33d0a46b929e",
+                    "contents":[
+
+                    ],
+                    "created":1539941006,
+                    "path":"/radslag-gotland/1-hur-kan-samhallet-bidra-till-en-bra-och-likvardig-utveckling-av-digital-for/f2690dd4-5633-4ca1-bd76-33d0a46b929e",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "titan"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "l\u00e4ros\u00e4ten",
+                        "regionen",
+                        "titan-1"
+                    ],
+                    "aid":"titan-1"
+                }
+            ]
+        },
+        {
+            "uid":"c338a2cb-3d9b-472d-be69-3b88ddb90839",
+            "created":1538655814,
+            "title":"2) Vilka \u00e4r de fr\u00e4msta hindren f\u00f6r en bra och likv\u00e4rdig utveckling av digital kompetens i skolv\u00e4sendet?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":11,
+                "Poll":1
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i",
+            "contents":[
+                {
+                    "text":"f\u00f6resl\u00e5r standardisering av gr\u00e4nssnitt f\u00f6r l\u00e4romedel och adminsystem\n#SKL #TidMedel",
+                    "uid":"028113bd-1899-4225-aeff-46411b6f3a40",
+                    "contents":[
+
+                    ],
+                    "created":1539942129,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/028113bd-1899-4225-aeff-46411b6f3a40",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "skl",
+                        "tidmedel",
+                        "ganymede-6"
+                    ],
+                    "aid":"ganymede-6"
+                },
+                {
+                    "text":"tydliga minimikrav p\u00e5 utrustning, finansieras med statliga medel\n#TidMedel #Regeringen",
+                    "uid":"28bc75da-1d03-40c4-bcc0-e1b7fbdca5d9",
+                    "contents":[
+
+                    ],
+                    "created":1539941477,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/28bc75da-1d03-40c4-bcc0-e1b7fbdca5d9",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "regeringen",
+                        "ganymede-4"
+                    ],
+                    "aid":"ganymede-4"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Fungerande enheter - Tidsplan f\u00f6r 1 - 1 tillg\u00e5ng, fungerande teknik p\u00e5 samtliga enheter...\n#TidKort #Huvudman",
+                    "uid":"35e8bf8b-01cd-4a58-9979-82a19f666b37",
+                    "contents":[
+
+                    ],
+                    "created":1539941450,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/35e8bf8b-01cd-4a58-9979-82a19f666b37",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidkort",
+                        "huvudman",
+                        "saturnus-2"
+                    ],
+                    "aid":"saturnus-2"
+                },
+                {
+                    "text":"P\u00e5 nationell eller regional niv\u00e5 st\u00f6dja kompbilitet, minska teknikstrul och icke anv\u00e4ndarv\u00e4nliga program som utg\u00f6r hinder f\u00f6r l\u00e4raren i klassrummet som skall arbeta och utveckla digitaliseringen.",
+                    "uid":"78f8047b-eded-476d-b8f5-d806b0600e22",
+                    "contents":[
+
+                    ],
+                    "created":1539939994,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/78f8047b-eded-476d-b8f5-d806b0600e22",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "callisto-7"
+                    ],
+                    "aid":"callisto-7"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r \r\nBrist p\u00e5 strategier - f\u00f6r utbildning, ekonomi och v\u00e4rderingar.\r\nStrategi f\u00f6r ekonomi och budget p\u00e5 regeringsniv\u00e5 -nationell ekonomisk strategi.\n#TidMedel #Departement #Huvudman",
+                    "uid":"9118b78c-3a87-456f-b272-13f8d74e3492",
+                    "contents":[
+
+                    ],
+                    "created":1539941349,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/9118b78c-3a87-456f-b272-13f8d74e3492",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ioo"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "departement",
+                        "huvudman",
+                        "ioo-2"
+                    ],
+                    "aid":"ioo-2"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Nationellt rikta satsningar och styra kompetensutveckling till de som \u00e4nnu inte annamat det digitala uppdraget.",
+                    "uid":"950d3f7e-d762-401e-b876-f0ad4e6c8900",
+                    "contents":[
+
+                    ],
+                    "created":1539939784,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/950d3f7e-d762-401e-b876-f0ad4e6c8900",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "callisto-6"
+                    ],
+                    "aid":"callisto-6"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r: \u00d6kad kompetens - en grundkompetens -  kring hur man b\u00e4st anv\u00e4nder digitala resurser som pedagogiska komplement.\n#TidMedel #Huvudman",
+                    "uid":"9c4ada9e-9dc3-4ee7-9c3f-fe22fe286d43",
+                    "contents":[
+
+                    ],
+                    "created":1539941228,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/9c4ada9e-9dc3-4ee7-9c3f-fe22fe286d43",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "huvudman",
+                        "saturnus-1"
+                    ],
+                    "aid":"saturnus-1"
+                },
+                {
+                    "text":"\u00c5tg\u00e4rder f\u00f6r att v\u00e4cka intresse:\r\nskapa sj\u00e4lvf\u00f6rtroende hos personal genom att avs\u00e4tta tid f\u00f6r att l\u00e4ra sig och hj\u00e4lpa andra. Genom framsteg \u00f6kar lusten att l\u00e4ra mer.\n#TidMedel #Huvudman #Skolledning",
+                    "uid":"a35604d6-1e77-4ad6-9335-a1dd46e8892b",
+                    "contents":[
+
+                    ],
+                    "created":1539941689,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/a35604d6-1e77-4ad6-9335-a1dd46e8892b",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "huvudman",
+                        "skolledning",
+                        "ganymede-5"
+                    ],
+                    "aid":"ganymede-5"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Kompbilitet, teknikstrul och icke anv\u00e4ndarv\u00e4nliga program utg\u00f6r hinder f\u00f6r l\u00e4raren i klassrummet som skall arbeta och utveckla.",
+                    "uid":"b9d12613-9665-483c-aee7-1d567b0f0624",
+                    "contents":[
+
+                    ],
+                    "created":1539939604,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/b9d12613-9665-483c-aee7-1d567b0f0624",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "callisto-4"
+                    ],
+                    "aid":"callisto-4"
+                },
+                {
+                    "uid":"58f970b1-06fc-4cf4-a2c7-d8c4eb09d6f9",
+                    "created":1540210770,
+                    "title":"Beslut p2",
+                    "start_time":1540210789,
+                    "type_name":"Poll",
+                    "manifest":{
+                        "Vote":1
+                    },
+                    "poll_plugin":"sorted_schulze",
+                    "end_time":null,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/beslut-p2",
+                    "contents":[
+
+                    ]
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Nationellt st\u00f6dja likv\u00e4rdighet med styrning av medel till kommuner.\r\nUtj\u00e4mna skillnader i olika kommuner.\n#TidL\u00e5ng #Departement #Skolverket",
+                    "uid":"dee8db12-011d-4785-a7e9-76639f5b8d5f",
+                    "contents":[
+
+                    ],
+                    "created":1539939686,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/dee8db12-011d-4785-a7e9-76639f5b8d5f",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "callisto"
+                    ],
+                    "tags":[
+                        "tidl\u00e5ng",
+                        "departement",
+                        "skolverket",
+                        "callisto-5"
+                    ],
+                    "aid":"callisto-5"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Central kompetens att tillg\u00e5, d\u00e5 sm\u00e5 enheter rimligen inte kan ha en egen it-pedagog/it-tekniker.\n#TidMedel #Huvudman #Kommunpolitiken",
+                    "uid":"dffb61df-d18b-478c-bee5-bb68b24cc554",
+                    "contents":[
+
+                    ],
+                    "created":1539941481,
+                    "path":"/radslag-gotland/2-vilka-ar-de-framsta-hindren-for-en-bra-och-likvardig-utveckling-av-digital-i/dffb61df-d18b-478c-bee5-bb68b24cc554",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "huvudman",
+                        "kommunpolitiken",
+                        "saturnus-3"
+                    ],
+                    "aid":"saturnus-3"
+                }
+            ]
+        },
+        {
+            "uid":"61b2a61e-0e21-492d-8c14-2804b4bb0ee0",
+            "created":1538655834,
+            "title":"3) Hur kan samh\u00e4llet bidra till att digitaliseringen av skolv\u00e4sendet blir likv\u00e4rdig, g\u00e4llande b\u00e5de tillg\u00e5ng och anv\u00e4ndning?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":0,
+                "Poll":0
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/3-hur-kan-samhallet-bidra-till-att-digitaliseringen-av-skolvasendet-blir-bade",
+            "contents":[
+
+            ]
+        },
+        {
+            "uid":"f7c6a046-e732-4560-a121-25d184d806db",
+            "created":1538655858,
+            "title":"4) Vilka \u00e4r de fr\u00e4msta hindren f\u00f6r att uppn\u00e5 likv\u00e4rdighet g\u00e4llande anv\u00e4ndning och tillg\u00e5ng vid digitalisering av skolv\u00e4sendet?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":1,
+                "Poll":0
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/4-vilka-ar-de-framsta-hindren-for-att-uppna-likvardighet-gallande-anvandning-och",
+            "contents":[
+                {
+                    "text":"f\u00f6resl\u00e5r \r\nF\u00f6r\u00e4ndringsledning inom digitalerisering p\u00e5 alla chefsniv\u00e5er och f\u00f6r f\u00f6rtroendevalda.\n#TidMedel #Huvudman #Skolverket",
+                    "uid":"95f930de-bba3-4b66-8b47-a22c43d77ac7",
+                    "contents":[
+
+                    ],
+                    "created":1539940663,
+                    "path":"/radslag-gotland/4-vilka-ar-de-framsta-hindren-for-att-uppna-likvardighet-gallande-anvandning-och/95f930de-bba3-4b66-8b47-a22c43d77ac7",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "neptunus"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "huvudman",
+                        "skolverket",
+                        "neptunus-1"
+                    ],
+                    "aid":"neptunus-1"
+                }
+            ]
+        },
+        {
+            "uid":"15ccd354-2aee-4a85-84e2-c576748fc1a6",
+            "created":1538655879,
+            "title":"5) Vad \u00e4r viktigast f\u00f6r att forskning om digitalisering ska g\u00f6ras tillg\u00e4nglig f\u00f6r skolv\u00e4sendet?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":5,
+                "Poll":1
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for",
+            "contents":[
+                {
+                    "text":"Praktikn\u00e4ra och nyt\u00e4nkande\n#Vinnova #Skolverket #TidKort",
+                    "uid":"1836fbb1-0be0-423c-b581-1b9e8caee6ae",
+                    "contents":[
+
+                    ],
+                    "created":1539940735,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/1836fbb1-0be0-423c-b581-1b9e8caee6ae",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "vinnova",
+                        "skolverket",
+                        "tidkort",
+                        "ganymede-3"
+                    ],
+                    "aid":"ganymede-3"
+                },
+                {
+                    "text":"p\u00e5 nationellt plan g\u00f6rs urval, paketering och spridning planerat och genomt\u00e4nkt\n#Universitetskanslers\u00e4mbetet #Skolverket",
+                    "uid":"a311529d-b410-4b49-94e7-9fff94d2b981",
+                    "contents":[
+
+                    ],
+                    "created":1539940442,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/a311529d-b410-4b49-94e7-9fff94d2b981",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "universitetskanslers\u00e4mbetet",
+                        "skolverket",
+                        "ganymede-1"
+                    ],
+                    "aid":"ganymede-1"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r \r\nSkapa en tillg\u00e4nglig plattform d\u00e4r forskning presenteras kortfattat och med l\u00e4ttillg\u00e4ngligt spr\u00e4k.\n#TidKort #Universitet_och_h\u00f6gskoler\u00e5det #Skolverket",
+                    "uid":"a7b2fd45-d9b2-4d99-9896-a9a1df4895a4",
+                    "contents":[
+
+                    ],
+                    "created":1539941243,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/a7b2fd45-d9b2-4d99-9896-a9a1df4895a4",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "neptunus"
+                    ],
+                    "tags":[
+                        "tidkort",
+                        "universitet_och_h\u00f6gskoler\u00e5det",
+                        "skolverket",
+                        "neptunus-2"
+                    ],
+                    "aid":"neptunus-2"
+                },
+                {
+                    "uid":"6c9afcf7-465a-499a-8baa-474526e6b27e",
+                    "created":1540210829,
+                    "title":"Beslut p5",
+                    "start_time":1540210845,
+                    "type_name":"Poll",
+                    "manifest":{
+                        "Vote":1
+                    },
+                    "poll_plugin":"sorted_schulze",
+                    "end_time":null,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/beslut-p5",
+                    "contents":[
+
+                    ]
+                },
+                {
+                    "text":"p\u00e5 nationellt plan g\u00f6rs urval, paketering och spridning planerat och strukturerat #Skolverket #TidKort\n#L\u00e4rarutbildningarna",
+                    "uid":"c2b1ec24-a361-4b7a-a48b-743d887c94ee",
+                    "contents":[
+
+                    ],
+                    "created":1539940630,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/c2b1ec24-a361-4b7a-a48b-743d887c94ee",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ganymede"
+                    ],
+                    "tags":[
+                        "skolverket",
+                        "tidkort",
+                        "l\u00e4rarutbildningarna",
+                        "ganymede-2"
+                    ],
+                    "aid":"ganymede-2"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r  Forskningen ska vara f\u00f6rankrad i skolv\u00e4rlden, viktigt att f\u00e5 k\u00e4nna delaktighet och d\u00e5 blir man ocks\u00e5 nyfiken.\r\n\r\nGenom auktionsforskning,\r\nM\u00f6jligg\u00f6ra f\u00f6r pedagoger att forska.\r\nUppdrag f\u00f6r f\u00f6rstel\u00e4rare.\n#TidL\u00e5ng #L\u00e4ros\u00e4ten #Universitet_och_h\u00f6gskoler\u00e5det",
+                    "uid":"c655886f-d7a9-49a1-adb2-3d4d0a098606",
+                    "contents":[
+
+                    ],
+                    "created":1539941683,
+                    "path":"/radslag-gotland/5-vad-ar-viktigast-for-att-forskning-om-digitalisering-ska-goras-tillganglig-for/c655886f-d7a9-49a1-adb2-3d4d0a098606",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "ioo"
+                    ],
+                    "tags":[
+                        "tidl\u00e5ng",
+                        "l\u00e4ros\u00e4ten",
+                        "universitet_och_h\u00f6gskoler\u00e5det",
+                        "ioo-3"
+                    ],
+                    "aid":"ioo-3"
+                }
+            ]
+        },
+        {
+            "uid":"4959c7e8-c72a-4b9e-815f-e645f947d960",
+            "created":1538655897,
+            "title":"6) Hur kan forskningen b\u00e4st st\u00f6dja digitaliseringen av skolv\u00e4sendet?",
+            "start_time":null,
+            "type_name":"AgendaItem",
+            "manifest":{
+                "DiscussionPost":0,
+                "Proposal":4,
+                "Poll":1
+            },
+            "end_time":null,
+            "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet",
+            "contents":[
+                {
+                    "text":"f\u00f6resl Skapa ett likv\u00e4rdigt digitaliseringsarbete i svensk skola!\u00e5r\n#TidL\u00e5ng #Skolverket #Regeringen",
+                    "uid":"0cca2a4e-0cc9-4a5b-823d-92e1bb812dd0",
+                    "contents":[
+
+                    ],
+                    "created":1539942126,
+                    "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet/0cca2a4e-0cc9-4a5b-823d-92e1bb812dd0",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidl\u00e5ng",
+                        "skolverket",
+                        "regeringen",
+                        "saturnus-6"
+                    ],
+                    "aid":"saturnus-6"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r \r\nVirituell nationell anslagstavla d\u00e4r \u00f6nskem\u00e5l om omr\u00e5de f\u00f6r forskning kan samlas in f\u00f6r att p\u00e5 s\u00e5 s\u00e4tt skapa verksamhetsn\u00e4ra forskning.\n#TidKort #Universitet_och_h\u00f6gskoler\u00e5det #Skolverket",
+                    "uid":"a820e594-2a70-49b3-ad40-eab2dc797086",
+                    "contents":[
+
+                    ],
+                    "created":1539941786,
+                    "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet/a820e594-2a70-49b3-ad40-eab2dc797086",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "neptunus"
+                    ],
+                    "tags":[
+                        "tidkort",
+                        "universitet_och_h\u00f6gskoler\u00e5det",
+                        "skolverket",
+                        "neptunus-3"
+                    ],
+                    "aid":"neptunus-3"
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Ta hj\u00e4lp av forskning (s\u00e5 objektiv och praktikn\u00e4ra som m\u00f6jligt) f\u00f6r att vi ska g\u00f6ra r\u00e4tt saker som leder till \u00f6kad m\u00e5luppfyllelse.\n#TidMedel #Skolforskningsinstitutet #Skolverket",
+                    "uid":"af9886e7-2401-48ca-9e92-40176a58739c",
+                    "contents":[
+
+                    ],
+                    "created":1539942009,
+                    "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet/af9886e7-2401-48ca-9e92-40176a58739c",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "skolforskningsinstitutet",
+                        "skolverket",
+                        "saturnus-4"
+                    ],
+                    "aid":"saturnus-4"
+                },
+                {
+                    "uid":"8d42fe1d-a4c7-4338-8ea4-8152fea9f363",
+                    "created":1540210861,
+                    "title":"Beslut p6",
+                    "start_time":1540210878,
+                    "type_name":"Poll",
+                    "manifest":{
+                        "Vote":1
+                    },
+                    "poll_plugin":"sorted_schulze",
+                    "end_time":null,
+                    "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet/beslut-p6",
+                    "contents":[
+
+                    ]
+                },
+                {
+                    "text":"f\u00f6resl\u00e5r Klarg\u00f6ra begrepp f\u00f6r att kunna argumentera kring digitaliseringens f\u00f6r- och nackdelar.\n#TidMedel #Skolforskningsinstitutet #Skolverket",
+                    "uid":"e9116159-8a0b-4254-91fb-40010e5287ac",
+                    "contents":[
+
+                    ],
+                    "created":1539942063,
+                    "path":"/radslag-gotland/6-hur-kan-forskningen-bast-stodja-digitaliseringen-av-skolvasendet/e9116159-8a0b-4254-91fb-40010e5287ac",
+                    "type_name":"Proposal",
+                    "creator":[
+                        "saturnus"
+                    ],
+                    "tags":[
+                        "tidmedel",
+                        "skolforskningsinstitutet",
+                        "skolverket",
+                        "saturnus-5"
+                    ],
+                    "aid":"saturnus-5"
+                }
+            ]
+        }
+    ]
+}

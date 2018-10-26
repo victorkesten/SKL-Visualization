@@ -84,7 +84,7 @@ function change_view(option){
 }
 
 function createNodes(rawData) {
-
+  // console.log(rawData);
   var myNodes = rawData.map(function (d,i) {
     // console.log(i);
     return {
@@ -108,7 +108,7 @@ function createNodes(rawData) {
 
   // sort them to prevent occlusion of smaller nodes.
   myNodes.sort(function (a, b) { return b.value - a.value; });
-  console.log(myNodes);
+  // console.log(myNodes);
   return myNodes;
 }
 
@@ -256,11 +256,16 @@ function moveToCenter(alpha) {
     d.y = d.y + (center.y - d.y) * damper * alpha;
   };
 }
-
-
+//http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177
+// TODO: PNG EXPORT
 
 // TODO: This should be a link to the data_parse eventually.
-d3.csv('data/almedalen_details.csv', display);
+function start_program(){
+  // Won't need this. We go straight to display.
+  // through a d3.json call i suppose.
+  d3.csv('data/almedalen_details.csv', display);
+}
+
 
 function display(error, data) {
   if (error) {
