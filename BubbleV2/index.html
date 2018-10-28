@@ -22,14 +22,18 @@
             <li class="nav-item active view" id="view_0" style="border-left:none !important;">
               <a class="nav-link" onclick="change_view(0)">Översikt <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item view" id="view_1">
-              <a class="nav-link" onclick="change_view(1)">Fokusområden</a>
-            </li>
             <li class="nav-item view" id="view_2">
               <a class="nav-link" onclick="change_view(2)">Rådslag</a>
             </li>
+            <li class="nav-item view" id="view_1">
+              <a class="nav-link" onclick="change_view(1)">Fokusområden</a>
+            </li>
+
             <li class="nav-item view" id="view_3">
-              <a class="nav-link" onclick="change_view(3)">Karta(?)</a>
+              <!-- <a class="nav-link" onclick="change_view(3)">Karta(?)</a> -->
+            </li>
+            <li class="nav-item view" id="view_4">
+              <a class="nav-link" onclick="change_view(4)">Frågor</a>
             </li>
           </ul>
           <!-- <form class="form-inline my-2 my-md-0">
@@ -139,12 +143,8 @@
   <script src="js/libraries/jquery-3.2.1.min.js"></script>
   <script src="js/libraries/bootstrap/bootstrap.min.js"></script>
   <script src="js/libraries/d3.v4.min.js"></script>
-  <script src="js/data_parse.js"></script>
-  <script>
-    // read_list_of_files();
-    parse_file();
-  </script>
   <script src="js/new_bubbles.js"></script>
+  <script src="js/data_parse.js"></script>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

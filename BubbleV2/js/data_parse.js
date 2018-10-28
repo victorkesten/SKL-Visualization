@@ -14,7 +14,7 @@ function delayedHello(callback) {
 function parse_file(){
 
   var q = d3.queue();
-  q.defer(delayedHello);
+  // q.defer(delayedHello);
   // q.defer(d3.text,'list_of_files');
   // q.wait for finish.
   // Process this text into al ist of files
@@ -24,17 +24,40 @@ function parse_file(){
   // Process that data into a data json variables
   // And then starT_program with that data.
   //
-  q.defer(d3.json, 'data/gotland.json')
+  q.defer(d3.json, 'data/real/radslag-gotland.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-goteborg.json');
+  q.defer(d3.json, 'data/real/radslag-1-fou.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-skane.json');
+  q.defer(d3.json, 'data/real/radslag-1-delmal-1-2.json');
+  q.defer(d3.json, 'data/real/radslag-1-likvardig-tillgang-och-anvandning.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-ostergotland.json');
+  q.defer(d3.json, 'data/real/learning-forum-2018.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-norrbotten.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-vasterbotten.json');
+  q.defer(d3.json, 'data/real/gymn18.json');
+  q.defer(d3.json, 'data/real/radslag-orebro-lan.json');
+  q.defer(d3.json, 'data/real/regionalt-radslag-jonkoping.json');
+  q.defer(d3.json, 'data/real/radslag-orebro.json');
+  q.defer(d3.json, 'data/real/radslag2-kompetens.json');
+  // q.defer(d3.json, 'data/real/');
+
+
+  q.defer(d3.json, 'data/real/q_o.json');
 
   // First we read
 
   q.awaitAll(function(error, data_list){
     if(error) throw error;
-    // console.log(data_list[1]);
     // var fin_d = process_data(data_list[1]);
-    process_data(data_list[1]);
-    // console.log('goodbye');
-    start_program();
+    for(var i = 1; i < data_list.length; i++){
+      if(i == data_list.length-1){
+        question_id_omrade = data_list[i];
+        // console.log(question_id_omrade);
+      } else {
+        process_data(data_list[i]);
+      }
+    }
+    start_program(meeting_data, meeting_information, question_id_omrade);
   });
 }
 
@@ -44,23 +67,92 @@ var meeting_information = [];
 // 1 list for ALL proposals as per how it will be treated.
 // List of proposal objects.
 var meeting_data = [];
+var actors = {};
+var question_id_omrade = {};
 //
 //
 
 function process_data(data){
   add_meeting(data);
   add_proposals(data);
+  // console.log(actors);
 }
-
+var c = 0;
 function add_meeting(data){
   var d = {};
-  console.log(data);
-  
+  // console.log(data);
+  d.manifest = data.manifest;
+  d.path = data.path;
+  d.title = data.title;
+  d.uid = data.uid;
+  d.id = meeting_information.length;
+  var questions = [];
+  var no_q = d.manifest.AgendaItem;
+  // console.log(no_q);
+  // console.log(d.contents);
+  for(var i = 0; i < no_q; i++){
+    var q = {};
+    q.uid = data.contents[i].uid;
+    q.path = data.contents[i].path;
+    q.name = data.contents[i].title;
+    q.manifest = data.contents[i].manifest;
+    questions.push(q)
+    // if(q.uid != undefined){
+      // question_id_omrade[q.name] = 1;
+      // question_id_omrade[q.uid] = 1;
+
+      // console.log(question_id_omrade[q.uid]);
+      // console.log((c+2) + " | " + q.name);
+      // console.log(q.uid);
+      // c++;
+    // }
+  }
+  d.questions = questions;
+  // console.log(no_q);
+  // console.log(d);
   meeting_information.push(d);
 }
 
 function add_proposals(data){
+  var no_q = data.manifest.AgendaItem;
+  // This is the proposal
+  var manifest_id = data.uid;
+  for(var i = 0; i < no_q; i++){
+    var no_f = data.contents[i].manifest.Proposal;
+    var q_id = data.contents[i].uid;
+    for(var j = 0; j < no_f; j++){
+      var d = {};
+      d.meeting_id = manifest_id;
 
+      // console.log(meeting_information[i]);
+      d.question_id = q_id;
+      d.proposal_id = data.contents[i].contents[j].uid;
+      d.hashtag = data.contents[i].contents[j].aid;
+      d.path = data.contents[i].contents[j].path;
+      d.author = data.contents[i].contents[j].creator;
+      d.tags = data.contents[i].contents[j].tags;
+      d.text = data.contents[i].contents[j].text;
+      d.type = 0;
+
+      // console.log(d.tags);
+      // console.log(actors[])
+
+      // if(d.tags != undefined){
+      //   for(var k = 0; k < d.tags.length-1; k++){
+      //     if(actors[d.tags[k]] == undefined){
+      //       actors[d.tags[k]] = 1;
+      //
+      //     } else {
+      //       actors[d.tags[k]] += 1;
+      //
+      //     }
+      //   }
+      // }
+
+      meeting_data.push(d);
+    }
+  }
+  // console.log(mee)
 }
 
 function read_list_of_files(){
@@ -68,3 +160,5 @@ function read_list_of_files(){
     console.log(data);
   });
 }
+
+parse_file();

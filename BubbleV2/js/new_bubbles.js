@@ -4,6 +4,12 @@ var height = 400;
 
 var center = { x: width / 2, y: height / 2 };
 
+var omrade_titles = {
+  0: "Digtal Kompetens",
+  1: "Likvärdig Tillgång och Användning",
+  2: "Forskning och Uppföljning",
+  3: "Annat"
+};
 var omradeCenters = {
   0: { x: width / 3, y: height / 2 },
   1: { x: width / 2, y: height / 2 },
@@ -11,6 +17,38 @@ var omradeCenters = {
   3: { x:0, y:0},
   'filter' : {x: -10000, y:-10000}
 };
+
+var omrade_titles_x = {
+  // "Digtal Kompetens" : 200,
+  // "Likvärdig Tillgång och Användning" : 300,
+  // "Forskning och Uppföljning" : 400,
+  // "Annat" : 0
+  0: 200,
+  1: 420,
+  2: 670,
+  3: -150
+};
+
+var omrade_titles_y = {
+  // "Digtal Kompetens" : 0,
+  // "Likvärdig Tillgång och Användning" : 0,
+  // "Forskning och Uppföljning" : 0,
+  // "Annat" : 0
+  0: -75,
+  1: -75,
+  2: -125,
+  3:50
+};
+
+var radslag_titles_x = {};
+var radslag_titles_y = {};
+
+
+var radslag_centers = {};
+
+
+var question_omrade = {};
+
 
 var filterArea = {
   1000 : {x: -10000, y: -10000}
@@ -27,7 +65,6 @@ var svg = d3.select("svg")
 var g = svg.append("g");
 var g_sec = g.append("g");
 
-var omrade_titles = ["Digtal Kompetens","Likvärdig Tillgång och Användning","Forskning och Uppföljning", "Annat"];
 
 var format = d3.format(",d");
 
@@ -37,7 +74,7 @@ var tooltip = d3.select("body").append("div")
 
 var selected_color_scheme = 0;
 
-var color = d3.scaleOrdinal(d3.schemeCategory20c);
+var color = d3.scaleOrdinal(d3.schemeCategory20);
 var currently_selected_circle = null;
 
 var view_option = 0;
@@ -79,6 +116,7 @@ simulation.stop();
 function change_view(option){
   $("#view_"+view_option).removeClass("active");
   $("#view_"+option).addClass("active");
+  // console.lo
   view_option = option;
   move_bubbles(option);
 }
@@ -90,7 +128,8 @@ function createNodes(rawData) {
     return {
       id: (i+1),
       radius: 15, //radiusScale(+d.total_amount), // need to calculate a proper radius
-      value: Math.random() * 10, // Arbitrary value
+      // value: Math.random() * 10, // Arbitrary value
+      value : 10+i,
       tag: d.tag,
       author: d.author,
       message: d.message,
@@ -112,9 +151,35 @@ function createNodes(rawData) {
   return myNodes;
 }
 
+
+function createNewNodes(rawData){
+  var myNodes = rawData.map(function (d,i){
+    return {
+      id: (i+1),
+      radius: 15,
+      value: Math.random() * 10,
+      tag: d.hashtag,
+      author: d.author,
+      message: d.text,
+      meeting: d.meeting_id,
+      // omrade: 0,// Conversion Thing here.
+      omrade: convert_omrade(d.question_id),// Conversion Thing here.
+      question: d.question_id,
+      type: d.type,
+      path: d.path,
+      tags: d.tags,
+      x: Math.random() * 900,
+      y: Math.random() * 800
+    };
+  });
+  myNodes.sort(function (a,b){ return b.value - a.value; });
+
+  return myNodes;
+}
+
 //https://github.com/vlandham/bubble_chart_v4
 //http://vallandingham.me//bubble_charts_with_d3v4.html
-function chart(selector, rawData) {
+function chart(selector, rawData,t) {
   var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
 
   var radiusScale = d3.scalePow()
@@ -122,7 +187,9 @@ function chart(selector, rawData) {
     .range([2, 85])
     .domain([0, maxAmount]);
 
-  nodes = createNodes(rawData);
+  // nodes = createNodes(rawData);
+  nodes = createNewNodes(rawData);
+
   // Set the force's nodes to our newly created nodes array.
   // force.nodes(nodes);
 
@@ -140,7 +207,7 @@ function chart(selector, rawData) {
     // .attr('fill', function (d) { return fillColor(d.group); })
     // .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
     .style("stroke","black")
-    .style("fill",function(d){ return mote_color(d);return color(d.question);})
+    .style("fill",function(d){ return mote_color(d);   /*return color(d.meeting);*/})
     .attr('stroke-width', 1)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
@@ -158,6 +225,8 @@ function chart(selector, rawData) {
   // groupBubbles();
   move_bubbles(0);
 
+  create_radslag_titles();
+  create_omrade_titles();
 
   d3.selectAll(".badge")
     .on("click",function(d){
@@ -201,18 +270,27 @@ function chart(selector, rawData) {
           .style("opacity","1");
     }
 
-    function handleClickCircle(){
+    function handleClickCircle(d){
       console.log("infobox");
+      console.log(d);
       $("#info_box").css("display","initial");
 
-      $("#card_header").html("<a href='https://skl.voteit.se/regionalt-radslag-skane/3-hur-kan-samhallet-bidra-till-att-digitaliseringen-av-skolvasendet-blir-bade'>#jupiter-3</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
-      $("#card_meeting_tree").html("Skåne &rarr; Område 2 &rarr; Fråga 1");
-      $("#card_description").text("Kompetens- och resurssäkra den likvärdiga digitala utvecklingen.");
+      $("#card_header").html("<a href='https://skl.voteit.se/"+d.path+"'>#"+d.tag+"</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
+      // $("#card_header").html("<a href='https://skl.voteit.se/regionalt-radslag-skane/3-hur-kan-samhallet-bidra-till-att-digitaliseringen-av-skolvasendet-blir-bade'>#jupiter-3</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
 
-      for(var i = 0; i < i; i++){
+      // $("#card_meeting_tree").html("Skåne &rarr; Område 2 &rarr; Fråga 1");
+      // $("#card_description").text("Kompetens- och resurssäkra den likvärdiga digitala utvecklingen.");
+      $("#card_description").text(d.message);
+      console.log(d.tags);
+      var pill_string = "";
+
+      for(var i = 0; i < d.tags.length-1; i++){
         // Create pills.
+        var s = d.tags[i];
+        var t = s.charAt(0).toUpperCase() + s.substr(1);
+        pill_string += "<span class='badge badge-pill badge-primary'>"+t+"</span>\n";
       }
-      var pill_string = "<span class='badge badge-pill badge-primary'>Medel</span>\n<span class='badge badge-pill badge-primary'>Skolverket</span>\n<span class='badge badge-pill badge-primary'>SPSM</span>\n<span class='badge badge-pill badge-primary'>Lärarutbildnignarna</span>\n<span class='badge badge-pill badge-primary'>Huvudman</span>\n";
+      // var pill_string = "<span class='badge badge-pill badge-primary'>Medel</span>\n<span class='badge badge-pill badge-primary'>Skolverket</span>\n<span class='badge badge-pill badge-primary'>SPSM</span>\n<span class='badge badge-pill badge-primary'>Lärarutbildnignarna</span>\n<span class='badge badge-pill badge-primary'>Huvudman</span>\n";
       $("#pills").html(pill_string);
       $("#card_description").html();
       $("card_activity").text("");
@@ -230,23 +308,30 @@ function move_bubbles(opt){
   if(opt == 0){
     // @v4 Reset the 'x' force to draw the bubbles to the center.
     simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
-
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
   } else if (opt == 1){
     // showYearTitles();
-    show_omrade_titles();
-
     // @v4 Reset the 'x' force to draw the bubbles to their year centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(omrade_view));
 
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
+  } else if (opt == 2){
+    simulation.force('x', d3.forceX().strength(forceStrength).x(radslag_view));
+    simulation.alpha(1).restart();
   }
+
+  toggle_title();
 }
 
 function omrade_view(d){
   return omradeCenters[d.omrade].x;
+}
+
+function radslag_view(d){
+  // console.log(d);
+  return radslag_centers[d.meeting].x;
 }
 
 function moveToCenter(alpha) {
@@ -260,10 +345,16 @@ function moveToCenter(alpha) {
 // TODO: PNG EXPORT
 
 // TODO: This should be a link to the data_parse eventually.
-function start_program(){
+function start_program(d,t,o){
+  console.log(d);
+  question_omrade = o;
   // Won't need this. We go straight to display.
   // through a d3.json call i suppose.
-  d3.csv('data/almedalen_details.csv', display);
+  // d3.csv('data/almedalen_details.csv', display);
+  // d3.json('data/processed_data.json',display);
+  // dis
+  prepare_meetings(t);
+  chart('#vis',d,t);
 }
 
 
@@ -354,29 +445,114 @@ function change_color(d){
     element.removeClass("btn-outline-primary");
   }
 }
+console.log(d3.schemeCategory20);
 
 function mote_color(d){
-  if(d.question == 0){
-    return "#fcdd9e";
-  } else if (d.question == 1){
-    return "#faab8c";
-  } else if (d.question == 2){
-    return "#c69897";
-  } else if (d.question == 3){
-    return "#e18233";
-  } else if (d.question == 4){
-    return "#9a7b5b";
-  } else if (d.question == 5){
-    return "#d65219";
-  } else {
-    return "lightgrey";
+  // console.log(d.meeting);
+  return color(d.meeting);
+  // if(d.meeting == 0){
+  //   return "#fcdd9e";
+  // } else if (d.question == 1){
+  //   return "#faab8c";
+  // } else if (d.question == 2){
+  //   return "#c69897";
+  // } else if (d.question == 3){
+  //   return "#e18233";
+  // } else if (d.question == 4){
+  //   return "#9a7b5b";
+  // } else if (d.question == 5){
+  //   return "#d65219";
+  // } else {
+  //   return "lightgrey";
+  // }
+}
+
+function prepare_meetings(meeting_information){
+  for(var i = 0; i < meeting_information.length; i++){
+    // console.log(meeting_information[i].title);
+    if(i > 6){
+      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200 +60 ), y: height/2};
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200;
+    } else {
+      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200 +60 ), y: height/2};
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
+    }
+
+    // Need some speciality here due to size and clashing.
+    if(meeting_information[i].title.match('Rådslag 2 \\| Fokusområde Digital kompetens för alla i skolväsendet')){
+      radslag_titles_y[meeting_information[i].title] = 30;
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 - 60;
+    }else  if(meeting_information[i].title.match('Learning forum 2018')){
+      radslag_titles_y[meeting_information[i].title] = -40;
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 75;
+    } else if(meeting_information[i].title.match('Regionalt Rådslag \\| Östergötland')){
+      radslag_titles_y[meeting_information[i].title] = 60;
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
+    } else if(meeting_information[i].title.match('Rådslag 1 \\| Fokusområde Digital kompetens för alla i skolväsendet')){
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
+      radslag_titles_y[meeting_information[i].title] = 60;
+
+    }
+     else {
+      radslag_titles_y[meeting_information[i].title] = 20;
+    }
   }
 }
 
-function show_omrade_titles(){
 
+
+function convert_omrade(q_id){
+  // console.log(q_id);
+  if(q_id != undefined){
+    return question_omrade[q_id];
+  }
+  return 3;
+}
+
+function create_radslag_titles(){
+  var radslagData = d3.keys(radslag_titles_x);
+  var years = g.selectAll('.radslagTitles')
+  .data(radslagData);
+
+years.enter().append('text')
+  .attr('class', 'radslagTitles')
+  .attr('display','none')
+  .attr('x', function (d) { return radslag_titles_x[d]; })
+  .attr('y', function(d){  return radslag_titles_y[d];})
+  .attr('text-anchor', 'middle')
+  .text(function (d) { return d; });
+}
+
+function create_omrade_titles(){
+  var omradeData = d3.keys(omrade_titles);
+  var years = g.selectAll('.omradeTitles')
+  .data(omradeData);
+
+years.enter().append('text')
+  .attr('class', 'omradeTitles')
+  .attr('display','none')
+  .attr('x', function (d) { return omrade_titles_x[d]; })
+  .attr('y', function(d){  return omrade_titles_y[d];})
+  .attr('text-anchor', 'middle')
+  .text(function (d) { return omrade_titles[d]; });
 }
 
 function hide_infobox(){
   $("#info_box").css("display","none");
+}
+
+function toggle_title(opt){
+  if(view_option == 2){
+    $(".radslagTitles").css("display","initial");
+  } else {
+    $(".radslagTitles").css("display","none");
+  }
+
+  if(view_option == 1){
+    $(".omradeTitles").css("display","initial");
+  } else {
+    $(".omradeTitles").css("display","none");
+
+  }
+
 }

@@ -72,6 +72,13 @@ https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-rema
   position: absolute;
   top: 0;
   right: 0;
+  /* max-height:100%; */
+}
+
+.card-body {
+  max-height: 350px;
+  /* text-overflow:inherit; */
+  overflow-y:scroll;
 }
 
 /* https://www.colorhexa.com/6968a4 */
