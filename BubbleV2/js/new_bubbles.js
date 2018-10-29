@@ -270,8 +270,6 @@ function handleClickCircle(d){
 
 /** Attempt at Filtering and Redrawing **/
 function redraw_bubbles(new_nodes){
-  // simulation.stop();
-
   bubbles = g.selectAll('.bubble')
     .data(new_nodes, function (d) { return d.id; });
 
@@ -345,7 +343,7 @@ function start_program(d,t,o){
 }
 
 // Each int corresponds to an active/deactive filter.
-var filters = [0,0,0,0,0,0];
+var filters = [0,0,0,0,0,0,0,0,0,0];
 var option = 0;
 var filtered_bubbles = [];
 
@@ -353,7 +351,7 @@ function filter_badge(d){
   var element = $(d);
   var text = element.text();
   var _filter = 0;
-
+  console.log(text);
   if(element.hasClass("badge_outline_primary")){
     element.removeClass("badge_outline_primary");
     $(d).addClass("badge-primary");
@@ -365,10 +363,18 @@ function filter_badge(d){
   if(text.match("Digital Kompetens")){ _filter = 0;
   } else if(text.match("Likvärdig Tillgång / Användning")){ _filter = 1;
   } else if(text.match("Forskning och Uppföljning")){ _filter = 2;
-  } else if(text.match("Annat")){ _filter = 3;}
+  } else if(text.match("Annat")){ _filter = 3;
+  } else if(text.match("Kort")){_filter = 4;
+  } else if(text.match("Medel")){_filter = 5;
+  } else if(text.match("Lång")){_filter = 6;
+  } else if(text.match("N/A")){_filter = 7;}
+  // } else if(text.match("")){_filter = 4;
+
 
   simulation.stop();
+
   //Filter the 'nodes' object.
+  // This works well!
   for(var i = 0; i < nodes.length; i++){
     if(_filter == 0 && filters[0] == 0 && nodes[i].omrade == 0){ids_of_filtered[i] = 1;}
     else if(_filter == 0 && filters[0] == 1 && nodes[i].omrade == 0){ ids_of_filtered[i] = 0; }
@@ -378,122 +384,79 @@ function filter_badge(d){
     else if(_filter == 2 && filters[2] == 1 && nodes[i].omrade == 2){ ids_of_filtered[i] = 0; }
     if(_filter == 3 && filters[3] == 0 && nodes[i].omrade == 3){ids_of_filtered[i] = 1;}
     else if(_filter == 3 && filters[3] == 1 && nodes[i].omrade == 3){ ids_of_filtered[i] = 0; }
+    if(_filter == 4 && filters[4] == 0){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("kort") || tag.match("tidkort")){
+            ids_of_filtered[i] = 1;
+          }
+        }
+      }
+    }
+    else if(_filter == 4 && filters[4] == 1){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("kort") || tag.match("tidkort")){
+            ids_of_filtered[i] = 0;
+          }
+        }
+      }
+    }
+    if(_filter == 5 && filters[5] == 0){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medelid")){
+            ids_of_filtered[i] = 1;
+          }
+        }
+      }
+    }
+    else if(_filter == 5 && filters[5] == 1){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medelid")){
+            ids_of_filtered[i] = 0;
+          }
+        }
+      }
+    }
+    if(_filter == 6 && filters[6] == 0){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
+            ids_of_filtered[i] = 1;
+          }
+        }
+      }
+    }
+    else if(_filter == 6 && filters[6] == 1){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        for(var j = 0; j < t_length-1; j++){
+          var tag = nodes[i].tags[j];
+          if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
+            ids_of_filtered[i] = 0;
+          }
+        }
+      }
+    }
   }
-  // Call redraw_bubbles();
   var new_nodes = [];
   for(var i = 0; i < nodes.length; i++){
     if(ids_of_filtered[i] == 0){ new_nodes.push(nodes[i]); }
   }
   redraw_bubbles(new_nodes);
-  // console.log(new_nodes);
-
-  // var c = nodes.length;
-  // for(var i = 0; i < c; i++){
-  //   if(_filter == 0 && filters[0] == 0){
-  //     console.log(i);
-  //     var v = nodes[i];
-  //     console.log(v);
-  //     if(v.omrade == 0){
-  //         filtered_bubbles.push(v);
-  //         nodes.splice(i+1,1);
-  //     }
-  //   }
-  // }
-  //
-  // console.log(filtered_bubbles.length);
-  // c = filtered_bubbles.length;
-  // for(var i = 0; i < c; i++){
-  //   if(_filter == 0 && filters[0] == 1){
-  //     if(filtered_bubbles[i] != undefined && filtered_bubbles[i].omrade == 0){
-  //       nodes.push(filtered_bubbles[i]);
-  //       filtered_bubbles.splice(i+1,1);
-  //     }
-  //   }
-  // }
-  // var all_b = nodes;
-  // var bubblesE = g.selectAll("circle")
-  //     .data(nodes, function(d,i) {
-  //             if(_filter == 0 && filters[0] == 0){
-  //               if(d.omrade == 0){
-  //                   return;
-  //               }
-  //             }
-  //       return d.id;
-  //     });
-
-    //   bubblesE.filter(function(d,i){
-    //       if(_filter == 0 && filters[0] == 0){
-    //         if(d.omrade == 0){
-    //             return true;
-    //         }
-    //       }
-    //       if(_filter == 1 && filters[1] == 0){
-    //         if(d.omrade == 1){
-    //             return true;
-    //         }
-    //       }
-    //       if(_filter == 2 && filters[2] == 0){
-    //         if(d.omrade == 2){
-    //             return true;
-    //         }
-    //       }
-    //       if(_filter == 3 && filters[3] == 0){
-    //         if(d.omrade == 3){
-    //             return true;
-    //         }
-    //       }
-    //       return false;
-    //   })
-    //   .attr('display','none');
-    //   // .transition()
-    //   // .attr("transform","translate(-100,-100)");
-    //
-    // bubblesE.filter(function(d,i){
-    //   if(_filter == 0 && filters[0] == 1){
-    //     if(d.omrade == 0){
-    //       return true;
-    //     }
-    //   }
-    //   if(_filter == 1 && filters[1] == 1){
-    //     if(d.omrade == 1){
-    //       return true;
-    //     }
-    //   }
-    //   if(_filter == 2 && filters[2] == 1){
-    //     if(d.omrade == 2){
-    //       return true;
-    //     }
-    //   }
-    //   if(_filter == 3 && filters[3] == 1){
-    //     if(d.omrade == 3){
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // })
-    // .attr('display', 'inital');
-      // .style('fill','blue');
-  // bubbles = bubbles.merge(bubblesE);
-
-  // bubblesE.exit().remove();
-  // bubblesE.enter().append()
-  //   .attr(r,15);
-
-  // circle.enter();
-  // nodes = all_b;
   filters[_filter] = 1 - filters[_filter];  // Activated Filters toggle
-
-  // redraw_bubbles();
-
-  // I think bubbles is the variable I have to modify.
-
-  // This should eventually be removed
-  // And the simulation should still only be done in
-  // move_bubbles(view_option)
-  // Only with new and updated bubbles.
-  // simulation.force('x', d3.forceX().strength(forceStrength).x(filter_bubbles));
-  // simulation.alpha(1).restart();
-  // restart_simulation(new_nodes);
 }
 
 function change_color(d){
