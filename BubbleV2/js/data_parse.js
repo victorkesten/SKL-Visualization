@@ -72,10 +72,12 @@ var question_id_omrade = {};
 //
 //
 
+var users = {};
+
 function process_data(data){
   add_meeting(data);
   add_proposals(data);
-  // console.log(actors);
+  console.log(users);
 }
 var c = 0;
 function add_meeting(data){
@@ -110,6 +112,16 @@ function add_meeting(data){
   d.questions = questions;
   // console.log(no_q);
   // console.log(d);
+
+  var participants = data.participants;
+  for (var i = 0; i < participants.length; i++){
+        if(users[participants[i]] == undefined){
+          users[participants[i]] = 1;
+        } else {
+          users[participants[i]] += 1;
+        }
+  }
+
   meeting_information.push(d);
 }
 

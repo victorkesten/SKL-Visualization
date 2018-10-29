@@ -3,7 +3,7 @@ var width = 960;
 var height = 400;
 
 var center = { x: width / 2, y: height / 2 };
-
+var meet_info;
 var omrade_titles = {
   0: "Digtal Kompetens",
   1: "Likvärdig Tillgång och Användning",
@@ -83,7 +83,6 @@ var view_option = 0;
 // nodes and other variables.
 var damper = 0.102;
 var bubbles = null;
-var filtered_bubbles = null;
 var nodes = [];
 
 svg.call(zoom);
@@ -244,7 +243,7 @@ function chart(selector, rawData,t) {
       change_color(this);
       return "";
     });
-
+    //https://bl.ocks.org/pstuffa/3393ff2711a53975040077b7453781a9
     function handleMouseOverCircle(d){
       var id = d.id;
       this.parentNode.appendChild(this);
@@ -257,10 +256,26 @@ function chart(selector, rawData,t) {
         .transition()
           .style("opacity","0.3");
 
+      var meeting_name = ""
+      var omrade_t = omrade_titles[d.omrade];
+      var question_t = "";
+      for(var i = 0; i < meet_info.length; i++){
+        var u_id = meet_info[i].uid;
+        var ta = d.meeting;
+        if(u_id.match(ta)){
+          meeting_name = meet_info[i].title;
+          for(var j = 0; j < meet_info[i].questions.length; j++){
+            if(meet_info[i].questions[j].uid.match(d.question)){
+              question_t = meet_info[i].questions[j].name;
+            }
+          }
+        }
+      }
       tooltip.transition().style("opacity", .9);
-      tooltip.html(d.id)
+      tooltip.html("<b>"+meeting_name + "</b><br>" + question_t)
         .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY - 28) + "px");
+        .style("top", (d3.event.pageY - 28) + "px")
+        .style("max-width",  200 + "px");
     }
 
     function handleMouseOutCircle(d){
@@ -275,10 +290,25 @@ function chart(selector, rawData,t) {
       console.log(d);
       $("#info_box").css("display","initial");
 
-      $("#card_header").html("<a href='https://skl.voteit.se/"+d.path+"'>#"+d.tag+"</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
+      $("#card_header").html("<a href='https://skl.voteit.se"+d.path+"'>#"+d.tag+"</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
       // $("#card_header").html("<a href='https://skl.voteit.se/regionalt-radslag-skane/3-hur-kan-samhallet-bidra-till-att-digitaliseringen-av-skolvasendet-blir-bade'>#jupiter-3</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
+      var meeting_name = ""
+      var omrade_t = omrade_titles[d.omrade];
+      var question_t = "";
+      for(var i = 0; i < meet_info.length; i++){
+        var u_id = meet_info[i].uid;
+        var ta = d.meeting;
+        if(u_id.match(ta)){
+          meeting_name = meet_info[i].title;
+          for(var j = 0; j < meet_info[i].questions.length; j++){
+            if(meet_info[i].questions[j].uid.match(d.question)){
+              question_t = meet_info[i].questions[j].name;
+            }
+          }
+        }
+      }
+      $("#card_meeting_tree").html(meeting_name + " &rarr;\n<br> "+omrade_t+" &rarr;\n<br> "+question_t);
 
-      // $("#card_meeting_tree").html("Skåne &rarr; Område 2 &rarr; Fråga 1");
       // $("#card_description").text("Kompetens- och resurssäkra den likvärdiga digitala utvecklingen.");
       $("#card_description").text(d.message);
       console.log(d.tags);
@@ -292,10 +322,14 @@ function chart(selector, rawData,t) {
       }
       // var pill_string = "<span class='badge badge-pill badge-primary'>Medel</span>\n<span class='badge badge-pill badge-primary'>Skolverket</span>\n<span class='badge badge-pill badge-primary'>SPSM</span>\n<span class='badge badge-pill badge-primary'>Lärarutbildnignarna</span>\n<span class='badge badge-pill badge-primary'>Huvudman</span>\n";
       $("#pills").html(pill_string);
-      $("#card_description").html();
-      $("card_activity").text("");
+      // $("#card_description").html();
+      // $("card_activity").text("");
     }
 };
+
+function redraw_bubbles(){
+
+}
 
 
 function ticked() {
@@ -353,6 +387,7 @@ function start_program(d,t,o){
   // d3.csv('data/almedalen_details.csv', display);
   // d3.json('data/processed_data.json',display);
   // dis
+  meet_info = t;
   prepare_meetings(t);
   chart('#vis',d,t);
 }
@@ -387,13 +422,10 @@ function filter_bubbles(d) {
         return filterArea[1000].x;
     }
   }
-  // if(view_option == 0){
-  //   return groupBubbles();
-  // } else if (view_option == 1){
-  //   return splitBubbles();
-  // }
   return d.x;
 }
+
+var filtered_bubbles = [];
 
 function filter_badge(d){
   var element = $(d);
@@ -417,12 +449,98 @@ function filter_badge(d){
   } else if(text.match("Annat")){
     _filter = 3;
   }
-  filters[_filter] = 1 - filters[_filter];  // Activated Filters toggle
 
     // Need to filter here before we call the simulation function.
     // filter
-  var all_bubbles = nodes;
-  console.log(all_bubbles);
+  // var all_b = nodes;
+  // var c = all_b.length;
+  // for(var i = 0; i < c; i++){
+  //   if(_filter == 0 && filters[0] == 0){
+  //     console.log(i);
+  //     if(all_b[i].omrade == 0){
+  //         filtered_bubbles.push(all_b[i]);
+  //         all_b.splice(i+1,1);
+  //     }
+  //   }
+  // }
+
+  // console.log(filtered_bubbles.length);
+  // c = filtered_bubbles.length;
+  // for(var i = 0; i < c; i++){
+  //   if(_filter == 0 && filters[0] == 1){
+  //     if(filtered_bubbles[i] != undefined && filtered_bubbles[i].omrade == 0){
+  //       nodes.push(filtered_bubbles[i]);
+  //       filtered_bubbles.splice(i+1,1);
+  //     }
+  //   }
+  // }
+  var all_b = nodes;
+  var bubblesE = g.selectAll("circle")
+      .data(nodes, function(d) {return d.id});
+
+      bubblesE.filter(function(d,i){
+          if(_filter == 0 && filters[0] == 0){
+            if(d.omrade == 0){
+                return true;
+            }
+          }
+          if(_filter == 1 && filters[1] == 0){
+            if(d.omrade == 1){
+                return true;
+            }
+          }
+          if(_filter == 2 && filters[2] == 0){
+            if(d.omrade == 2){
+                return true;
+            }
+          }
+          if(_filter == 3 && filters[3] == 0){
+            if(d.omrade == 3){
+                return true;
+            }
+          }
+          return false;
+      })
+      .attr('display','none');
+      // .transition()
+      // .attr("transform","translate(-100,-100)");
+
+    bubblesE.filter(function(d,i){
+      if(_filter == 0 && filters[0] == 1){
+        if(d.omrade == 0){
+          return true;
+        }
+      }
+      if(_filter == 1 && filters[1] == 1){
+        if(d.omrade == 1){
+          return true;
+        }
+      }
+      if(_filter == 2 && filters[2] == 1){
+        if(d.omrade == 2){
+          return true;
+        }
+      }
+      if(_filter == 3 && filters[3] == 1){
+        if(d.omrade == 3){
+          return true;
+        }
+      }
+      return false;
+    })
+    .attr('display', 'inital');
+      // .style('fill','blue');
+  // bubblesE.exit().remove();
+  // bubblesE.enter().append()
+  //   .attr(r,15);
+
+  // circle.enter();
+  // nodes = all_b;
+  console.log(nodes);
+  console.log(filtered_bubbles);
+  filters[_filter] = 1 - filters[_filter];  // Activated Filters toggle
+
+  // redraw_bubbles();
 
   // I think bubbles is the variable I have to modify.
 
