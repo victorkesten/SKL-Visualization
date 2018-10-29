@@ -77,7 +77,7 @@ var users = {};
 function process_data(data){
   add_meeting(data);
   add_proposals(data);
-  console.log(users);
+  // console.log(users);
 }
 var c = 0;
 function add_meeting(data){
