@@ -217,6 +217,7 @@ function handleMouseOutCircle(d){
 
 function handleClickCircle(d){
   // d3.select(d)
+  console.log(d);
   var id = d.id;
   d3.selectAll(".bubble")
     .filter(function(d){
@@ -387,7 +388,7 @@ function filter_badge(d){
     if(_filter == 4 && filters[4] == 0){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
           if(tag.match("kort") || tag.match("tidkort")){
             ids_of_filtered[i] = 1;
@@ -398,7 +399,7 @@ function filter_badge(d){
     else if(_filter == 4 && filters[4] == 1){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
           if(tag.match("kort") || tag.match("tidkort")){
             ids_of_filtered[i] = 0;
@@ -409,9 +410,9 @@ function filter_badge(d){
     if(_filter == 5 && filters[5] == 0){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
-          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medelid")){
+          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medetlid")){
             ids_of_filtered[i] = 1;
           }
         }
@@ -420,9 +421,9 @@ function filter_badge(d){
     else if(_filter == 5 && filters[5] == 1){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
-          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medelid")){
+          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
             ids_of_filtered[i] = 0;
           }
         }
@@ -431,7 +432,7 @@ function filter_badge(d){
     if(_filter == 6 && filters[6] == 0){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
           if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
             ids_of_filtered[i] = 1;
@@ -442,7 +443,7 @@ function filter_badge(d){
     else if(_filter == 6 && filters[6] == 1){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length-1; j++){
+        for(var j = 0; j < t_length; j++){
           var tag = nodes[i].tags[j];
           if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
             ids_of_filtered[i] = 0;
@@ -450,6 +451,51 @@ function filter_badge(d){
         }
       }
     }
+    if(_filter == 7 && filters[7] == 0){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        console.log(nodes[i].tags);
+        if(t_length <= 0){
+          ids_of_filtered[i] = 1;
+        } else {
+          var te = 0;
+          for(var j = 0; j < t_length; j++){
+            var tag = nodes[i].tags[j];
+            if(tag.match("kort") || tag.match("tidkort") || tag.match("lång") || tag.match("långtid") || tag.match("tidlång") || tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
+              te++;
+            }
+          }
+          if(te == 0){
+            ids_of_filtered[i] = 1;
+          }
+        }
+      } else {
+        ids_of_filtered[i] = 1;
+      }
+    }
+    else if(_filter == 7 && filters[7] == 1){
+      if(nodes[i].tags != undefined){
+        var t_length = nodes[i].tags.length;
+        console.log(nodes[i].tags);
+        if(t_length <= 0){
+          ids_of_filtered[i] = 0;
+        } else {
+          var te = 0;
+          for(var j = 0; j < t_length; j++){
+            var tag = nodes[i].tags[j];
+            if(tag.match("kort") || tag.match("tidkort") || tag.match("lång") || tag.match("långtid") || tag.match("tidlång") || tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
+              te++;
+            }
+          }
+          if(te == 0){
+            ids_of_filtered[i] = 0;
+          }
+        }
+      } else {
+        ids_of_filtered[i] = 0;
+      }
+    }
+
   }
   var new_nodes = [];
   for(var i = 0; i < nodes.length; i++){

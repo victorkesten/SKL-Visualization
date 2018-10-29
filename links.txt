@@ -39,6 +39,14 @@ https://github.com/d3/d3-hierarchy
 
 https://www.youtube.com/watch?v=lPr60pexvEM
 
+
+http://jsfiddle.net/CCRb5/
+http://www.fernoftheandes.com/blog/blog005/index.html
+https://bl.ocks.org/mbostock/1095795
+https://gist.github.com/mbostock/1095795
+https://stackoverflow.com/questions/23825126/how-to-update-bubble-chart-in-d3-js
+http://bl.ocks.org/alansmithy/e984477a741bc56db5a5
+
 Double Line graph
   - Förslag/Diskussions
   - On hover, få mer Detaljer
