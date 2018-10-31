@@ -344,119 +344,114 @@ function start_program(d,t,o){
 }
 
 // Each int corresponds to an active/deactive filter.
-var filters = [0,0,0,0,0,0,0,0,0,0];
+var filters = [ 0,0,0,0,0,
+                0,0,0,0,0,
+                0,0,0,0,0,
+                0,0,0,0,0,
+                0,0,0,0];
 var option = 0;
 var filtered_bubbles = [];
+var option_words = ["Digital Kompetens","Likvärdig Tillgång / Användning","Forskning och Uppföljning","Annat","Kort","Medel","Lång","N/A",
+"Departement","Forskare","Huvudman","Lärare","Kommunpolitiken","SKL","Lärarutbildningarna","Lärosäten","Regeringen","Regionen","Skolledning",
+"Skolverket","Staten","Universitet och högskolerådet","Vinnova","Okategoriserad"];
 
 function filter_badge(d){
   var element = $(d);
   var text = element.text();
-  var _filter = 0;
+  var _filter = -1;
   console.log(text);
   if(element.hasClass("badge_outline_primary")){
     element.removeClass("badge_outline_primary");
-    $(d).addClass("badge-primary");
+    element.addClass("badge-primary");
   } else {
     element.removeClass("badge-primary");
-    $(d).addClass("badge_outline_primary");
+    element.addClass("badge_outline_primary");
   }
 
-  if(text.match("Digital Kompetens")){ _filter = 0;
-  } else if(text.match("Likvärdig Tillgång / Användning")){ _filter = 1;
-  } else if(text.match("Forskning och Uppföljning")){ _filter = 2;
-  } else if(text.match("Annat")){ _filter = 3;
-  } else if(text.match("Kort")){_filter = 4;
-  } else if(text.match("Medel")){_filter = 5;
-  } else if(text.match("Lång")){_filter = 6;
-  } else if(text.match("N/A")){_filter = 7;}
-  // } else if(text.match("")){_filter = 4;
-
+  for(var tt = 0; tt < option_words.length; tt++){
+    if(text.match(option_words[tt])){
+      _filter = tt;
+      tt = option_words;
+      // console.log("wtf");
+      break;
+    }
+  }
 
   simulation.stop();
 
-  //Filter the 'nodes' object.
-  // This works well!
   for(var i = 0; i < nodes.length; i++){
-    if(_filter == 0 && filters[0] == 0 && nodes[i].omrade == 0){ids_of_filtered[i] = 1;}
-    else if(_filter == 0 && filters[0] == 1 && nodes[i].omrade == 0){ ids_of_filtered[i] = 0; }
-    if(_filter == 1 && filters[1] == 0 && nodes[i].omrade == 1){ids_of_filtered[i] = 1;}
-    else if(_filter == 1 && filters[1] == 1 && nodes[i].omrade == 1){ ids_of_filtered[i] = 0; }
-    if(_filter == 2 && filters[2] == 0 && nodes[i].omrade == 2){ids_of_filtered[i] = 1;}
-    else if(_filter == 2 && filters[2] == 1 && nodes[i].omrade == 2){ ids_of_filtered[i] = 0; }
-    if(_filter == 3 && filters[3] == 0 && nodes[i].omrade == 3){ids_of_filtered[i] = 1;}
-    else if(_filter == 3 && filters[3] == 1 && nodes[i].omrade == 3){ ids_of_filtered[i] = 0; }
-    if(_filter == 4 && filters[4] == 0){
+    // Unfilter
+    if(_filter == 0 && filters[0] == 1 && nodes[i].omrade == 0){
+      if(ids_of_filtered[i] <= 0){
+        ids_of_filtered[i] = 0;
+      } else { ids_of_filtered[i] -= 1; }}
+    if(_filter == 1 && filters[1] == 1 && nodes[i].omrade == 1){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
+    if(_filter == 2 && filters[2] == 1 && nodes[i].omrade == 2){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
+    if(_filter == 3 && filters[3] == 1 && nodes[i].omrade == 3){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
+    unfilter_tags(_filter,4,nodes[i].tags,i,["kort","tidkort"]);
+    unfilter_tags(_filter,5,nodes[i].tags,i,["medel","tidmedel","medeltid"]);
+    unfilter_tags(_filter,6,nodes[i].tags,i,["lång","långtid","tidlång"]);
+    if(_filter == 7 && filters[7] == 1){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("kort") || tag.match("tidkort")){
-            ids_of_filtered[i] = 1;
-          }
-        }
-      }
-    }
-    else if(_filter == 4 && filters[4] == 1){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("kort") || tag.match("tidkort")){
+        console.log(nodes[i].tags);
+        if(t_length <= 0){
+          if(ids_of_filtered[i] <= 0){
             ids_of_filtered[i] = 0;
+          } else { ids_of_filtered[i] -= 1; }
+        } else {
+          var te = 0;
+          for(var j = 0; j < t_length; j++){
+            var tag = nodes[i].tags[j];
+            if(tag.match("kort") || tag.match("tidkort") || tag.match("lång") || tag.match("långtid") || tag.match("tidlång") || tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
+              te++;
+            }
+          }
+          if(te == 0){
+            if(ids_of_filtered[i] <= 0){
+              ids_of_filtered[i] = 0;
+            } else { ids_of_filtered[i] -= 1; }
           }
         }
+      } else {
+        if(ids_of_filtered[i] <= 0){
+          ids_of_filtered[i] = 0;
+        } else { ids_of_filtered[i] -= 1; }
       }
     }
-    if(_filter == 5 && filters[5] == 0){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medetlid")){
-            ids_of_filtered[i] = 1;
-          }
-        }
-      }
-    }
-    else if(_filter == 5 && filters[5] == 1){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
-            ids_of_filtered[i] = 0;
-          }
-        }
-      }
-    }
-    if(_filter == 6 && filters[6] == 0){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
-            ids_of_filtered[i] = 1;
-          }
-        }
-      }
-    }
-    else if(_filter == 6 && filters[6] == 1){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        for(var j = 0; j < t_length; j++){
-          var tag = nodes[i].tags[j];
-          if(tag.match("lång") || tag.match("långtid") || tag.match("tidlång")){
-            ids_of_filtered[i] = 0;
-          }
-        }
-      }
-    }
+    unfilter_tags(_filter,8,nodes[i].tags,i,["departement","departementet"]);
+    unfilter_tags(_filter,9,nodes[i].tags,i,["forskare","forskningsaktörer","forskningsfinansiärer","forskningsinstitutioner","forskningsråd"]);
+    unfilter_tags(_filter,10,nodes[i].tags,i,["huvudman","huvudmän","huvudmännen"]);
+    unfilter_tags(_filter,11,nodes[i].tags,i,["lärare"]);
+    unfilter_tags(_filter,12,nodes[i].tags,i,["kommunpolitiken","kommunpolitik"]);
+    unfilter_tags(_filter,13,nodes[i].tags,i,["SKL"]);
+    unfilter_tags(_filter,14,nodes[i].tags,i,["lärarutbildningar","lärarutbildningarna"]);
+    unfilter_tags(_filter,15,nodes[i].tags,i,["lärosäten","lärosäte","lärosätesledningar"]);
+    unfilter_tags(_filter,16,nodes[i].tags,i,["regeringen","regering","regeringskansliet"]);
+    unfilter_tags(_filter,17,nodes[i].tags,i,["regionen","regering","regeringskansliet"]);
+    unfilter_tags(_filter,18,nodes[i].tags,i,["skolledning","skolledare","skolhuvudman","skolhuvudmän"]);
+    unfilter_tags(_filter,19,nodes[i].tags,i,["skolverket","solverket","skolveket"]);
+    unfilter_tags(_filter,20,nodes[i].tags,i,["staten","statliga"]);
+    unfilter_tags(_filter,21,nodes[i].tags,i,["universitet_och_högskolerådet","universiteten","universitet","universitetskanslersämbetet"]);
+    unfilter_tags(_filter,22,nodes[i].tags,i,["vinnova"]);
+
+    // function unfilter_tags(__filter,__no, _node_tags,_i,__keywords){
+
+    // Filter
+    if(_filter == 0 && filters[0] == 0 && nodes[i].omrade == 0){ids_of_filtered[i] += 1;}
+    if(_filter == 1 && filters[1] == 0 && nodes[i].omrade == 1){ids_of_filtered[i] += 1;}
+    if(_filter == 2 && filters[2] == 0 && nodes[i].omrade == 2){ids_of_filtered[i] += 1;}
+    if(_filter == 3 && filters[3] == 0 && nodes[i].omrade == 3){ids_of_filtered[i] += 1;}
+
+    filter_tags(_filter,4,nodes[i].tags,i,["kort","tidkort"]);
+    filter_tags(_filter,5,nodes[i].tags,i,["medel","tidmedel","medeltid"]);
+    filter_tags(_filter,6,nodes[i].tags,i,["lång","långtid","tidlång"]);
     if(_filter == 7 && filters[7] == 0){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
         console.log(nodes[i].tags);
         if(t_length <= 0){
-          ids_of_filtered[i] = 1;
+          ids_of_filtered[i] += 1;
         } else {
           var te = 0;
           for(var j = 0; j < t_length; j++){
@@ -466,43 +461,98 @@ function filter_badge(d){
             }
           }
           if(te == 0){
-            ids_of_filtered[i] = 1;
+            ids_of_filtered[i] += 1;
           }
         }
       } else {
-        ids_of_filtered[i] = 1;
-      }
-    }
-    else if(_filter == 7 && filters[7] == 1){
-      if(nodes[i].tags != undefined){
-        var t_length = nodes[i].tags.length;
-        console.log(nodes[i].tags);
-        if(t_length <= 0){
-          ids_of_filtered[i] = 0;
-        } else {
-          var te = 0;
-          for(var j = 0; j < t_length; j++){
-            var tag = nodes[i].tags[j];
-            if(tag.match("kort") || tag.match("tidkort") || tag.match("lång") || tag.match("långtid") || tag.match("tidlång") || tag.match("medel") || tag.match("tidmedel") || tag.match("medeltid")){
-              te++;
-            }
-          }
-          if(te == 0){
-            ids_of_filtered[i] = 0;
-          }
-        }
-      } else {
-        ids_of_filtered[i] = 0;
+        ids_of_filtered[i] += 1;
       }
     }
 
+    filter_tags(_filter,8,nodes[i].tags,i,["departement","departementet"]);
+    filter_tags(_filter,9,nodes[i].tags,i,["forskare","forskningsaktörer","forskningsfinansiärer","forskningsinstitutioner","forskningsråd"]);
+    filter_tags(_filter,10,nodes[i].tags,i,["huvudman","huvudmän","huvudmännen"]);
+    filter_tags(_filter,11,nodes[i].tags,i,["lärare"]);
+    filter_tags(_filter,12,nodes[i].tags,i,["kommunpolitiken","kommunpolitik"]);
+    filter_tags(_filter,13,nodes[i].tags,i,["SKL"]);
+    filter_tags(_filter,14,nodes[i].tags,i,["lärarutbildningar","lärarutbildningarna"]);
+    filter_tags(_filter,15,nodes[i].tags,i,["lärosäten","lärosäte","lärosätesledningar"]);
+    filter_tags(_filter,16,nodes[i].tags,i,["regeringen","regering","regeringskansliet"]);
+    filter_tags(_filter,17,nodes[i].tags,i,["regionen","regering","regeringskansliet"]);
+    filter_tags(_filter,18,nodes[i].tags,i,["skolledning","skolledare","skolhuvudman","skolhuvudmän"]);
+    filter_tags(_filter,19,nodes[i].tags,i,["skolverket","solverket","skolveket"]);
+    filter_tags(_filter,20,nodes[i].tags,i,["staten","statliga"]);
+    filter_tags(_filter,21,nodes[i].tags,i,["universitet_och_högskolerådet","universiteten","universitet","universitetskanslersämbetet"]);
+    filter_tags(_filter,22,nodes[i].tags,i,["vinnova"]);
+
+    if(_filter == 23 && filters[23] == 0){
+
+    }
   }
+
   var new_nodes = [];
   for(var i = 0; i < nodes.length; i++){
     if(ids_of_filtered[i] == 0){ new_nodes.push(nodes[i]); }
   }
   redraw_bubbles(new_nodes);
   filters[_filter] = 1 - filters[_filter];  // Activated Filters toggle
+}
+
+function filter_tags(__filter, __no, _node_tags,_i,__keywords){
+  if(__filter == __no && filters[__no] == 0){
+    if(_node_tags != undefined){
+      var t_length = _node_tags.length;
+      var k_length = __keywords.length;
+      var filter_string = "("
+      for(var i = 0; i < k_length; i++){
+        if(i != __keywords.length-1){
+          filter_string += ""+__keywords[i]+"|"
+        } else {
+          filter_string += ""+__keywords[i]+")";
+        }
+      }
+      for(var i = 0; i < t_length; i++){
+        var tag = _node_tags[i];
+        if(tag.match(filter_string)){
+          ids_of_filtered[_i] += 1;
+        }
+      }
+    }
+  }
+}
+
+
+//   if(nodes[i].tags != undefined){
+//     var t_length = nodes[i].tags.length;
+//     for(var j = 0; j < t_length; j++){
+//       var tag = nodes[i].tags[j];
+//       if(tag.match("kort") || tag.match("tidkort")){
+//         if(ids_of_filtered[i] <= 0){
+//           ids_of_filtered[i] = 0;
+//         } else { ids_of_filtered[i] -= 1; }
+//       }
+//     }
+//   }
+function unfilter_tags(__filter,__no, _node_tags,_i,__keywords){
+  if(__filter == __no && filters[__no] == 1){
+    if(_node_tags != undefined){
+      var t_length = _node_tags.length;
+      var k_length = __keywords.length;
+      var filter_string = "("
+      for(var i = 0; i < k_length; i++){
+        if(i != __keywords.length-1){
+          filter_string += ""+__keywords[i]+"|"
+        } else {
+          filter_string += ""+__keywords[i]+")";
+        }
+      }
+      for(var i = 0; i < t_length; i++){
+        var tag = _node_tags[i];
+        if(tag.match(filter_string)){
+          ids_of_filtered[_i] -= 1; }
+      }
+    }
+  }
 }
 
 function change_color(d){
