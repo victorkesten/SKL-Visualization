@@ -33,14 +33,21 @@
               <!-- <a class="nav-link" onclick="change_view(3)">Karta(?)</a> -->
             </li>
             <li class="nav-item view" id="view_4">
-              <a class="nav-link" onclick="change_view(4)">Frågor</a>
+              <!-- <a class="nav-link" onclick="change_view(4)">Frågor</a> -->
             </li>
           </ul>
-          <!-- <form class="form-inline my-2 my-md-0">
-            <input class="form-control" id="search_bar" type="text" placeholder="Sök...">
-          </form> -->
+          <!-- <form class="form-inline my-2 my-md-0"> -->
+            <!-- <input class="form-control" id="search_bar" type="text" placeholder="Sök..."> -->
+            <!-- <span class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
+
+          <!-- </form> -->
+          <a target="_blank" href="https://goo.gl/forms/8NbxmGcywBp1QZP82">
+          <button type="button" class="form-inline my-0 btn btn-default" aria-label="Left Align">
+            <span>Feedback</span>
+          </button>
+        </a>
         </div>
-      </nav>
+      <!-- </nav> -->
     </div>
     <div id="content_container" class="container">
       <div class="row" id="content_row">
@@ -69,15 +76,7 @@
                 <span class="badge badge-pill badge-primary">N/A</span>
                 <br><br>
                 <h6>Aktörer</h6>
-                <!-- <span class="badge badge-pill badge-primary">Huvudman</span>
-                <span class="badge badge-pill badge-primary">Skolledning</span>
-                <span class="badge badge-pill badge-primary">SPSM</span>
-                <span class="badge badge-pill badge-primary">Kommunpolitiken</span>
-                <span class="badge badge-pill badge-primary">Utbildningsdepartementet</span>
-                <span class="badge badge-pill badge-primary">Lärosäten</span>
-                <span class="badge badge-pill badge-primary">Regeringen</span>
-                <span class="badge badge-pill badge-primary">Lärarutbildningarna</span>
-                <span class="badge badge-pill badge-primary">Skolverket</span> -->
+
                 <span class="badge badge-pill badge-primary">Departement</span>
                 <span class="badge badge-pill badge-primary">Forskare</span>
                 <span class="badge badge-pill badge-primary">Huvudman</span>
@@ -94,7 +93,7 @@
                 <span class="badge badge-pill badge-primary">Universitet och högskolerådet</span>
                 <span class="badge badge-pill badge-primary">Vinnova</span>
 
-                <span class="badge badge-pill badge-primary">Okategoriserad</span>
+                <!-- <span class="badge badge-pill badge-primary">Okategoriserad</span> -->
 
               </div>
             </li>
@@ -104,17 +103,25 @@
               <!-- <a class="nav-header" href="#">Färg</a> -->
               <h6>Färg</h6>
               <!-- <br> -->
-              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Resultat</a>
-              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Område</a>
-              <a href="#" class="p-1 btn btn-primary btn-sm color-button">Möte</a>
-              <a href="#" class="p-1 mt-2 btn btn-primary btn-sm color-button">Fråga</a>
+              <!-- <a href="#" class="p-1 btn btn-primary btn-sm color-button">Resultat</a> -->
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="px-1 btn btn-info col-but active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Rådslag
+              </label>
+              <label class="px-1 btn btn-info col-but">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Fokusområde
+              </label>
+            </div>
+
+              <!-- <a href="#" class="p-1 mt-2 btn btn-primary btn-sm color-button">Fråga</a> -->
 
             </li>
             <li class="nav-item">
               <!-- <a class="nav-link disabled" href="#">Reset</a> -->
               <br>
-              <a href="#" onclick="check_me()" class="btn btn-dark">Återställ</a>
-              <br><br>
+              <!-- <a href="#" onclick="check_me()" class="btn btn-dark">Återställ</a> -->
+              <span style="font-size:10px;">Creator: <a target="_blank" href="http://www.victorkesten.com">Victor Kesten</a></span>
+              <br>
             </li>
           </ul>
         </div>
@@ -154,7 +161,8 @@
 <img src="resources/känneteckenskoldigiplan.png"/ href="http://skoldigiplan.se" style="margin-left:3%;width:15%;bottom:0; right:0; position:absolute;">
 
   </body>
-
+<div class="check_text">
+</div>
   <script src="js/libraries/jquery-3.2.1.min.js"></script>
   <script src="js/libraries/bootstrap/bootstrap.min.js"></script>
   <script src="js/libraries/d3.v4.min.js"></script>

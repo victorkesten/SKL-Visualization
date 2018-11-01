@@ -35,6 +35,12 @@ var radslag_centers = {};
 var question_omrade = {};
 var ids_of_filtered = [];
 
+var picked_color_set = 0;
+var radslag_colors = {"f5494ed2-de82-4924-b074-caa57c48db12":"#1f77b4","d327c3e7-60ca-4b66-8330-b5df3ebe5611":"#aec7e8","4ffe534b-4072-43d4-98a0-6ea36de44292":"#ff7f0e","78eea2b5-519b-436f-837a-609cfd175874":"#ffbb78","05f2aa56-6abc-4f4c-bf70-279e702d1819":"#2ca02c","4c01d4e4-39ef-4d1b-81f5-393a3020820c":"#98df8a","97d511ac-1004-4c96-82b0-aff9e04b1b6e":"#d62728","f6923640-4d14-4d5e-b56b-f3e6a495a680":"#ff9896","a436c2d1-511f-4022-95c4-4e13f7ac6d90":"#9467bd","1380b7ff-5be8-4a19-898e-b7f211556e0f":"#c5b0d5","eb205a1f-7b14-46cc-8bfe-63af51114dfe":"#8c564b","be62399b-23bf-4eab-a7d0-46adb502772b":"#c49c94","b8849da1-10ea-40e1-a00f-615d5b7b2de7":"#e377c2","206fe9f4-24e6-40e4-9941-8194592b108d":"#f7b6d2"};
+// var omrade_colors = {0 : "#90EE90", 1 : "#e9bd15", 2: "#6666ff", 3 : "#ff6666"};
+var omrade_colors = {0 : "#ce5a57", 1 : "#78a5a3", 2: "#e1b16a", 3 : "#444c5c"};
+
+
 var clicked_bubble = -1;
 var zoom = d3.zoom()
     .scaleExtent([.2, 20])
@@ -170,8 +176,9 @@ function chart(rawData,t) {
       filter_badge(this);
     });
 
-  d3.selectAll(".color-button")
+  d3.selectAll(".col-but")
     .on("click", function(){
+      console.log(this);
       change_color(this);
     });
 
@@ -217,6 +224,7 @@ function handleMouseOutCircle(d){
 
 function handleClickCircle(d){
   // d3.select(d)
+  $(".check_text").text(JSON.stringify(radslag_colors));
   console.log(d);
   var id = d.id;
   d3.selectAll(".bubble")
@@ -521,18 +529,6 @@ function filter_tags(__filter, __no, _node_tags,_i,__keywords){
   }
 }
 
-
-//   if(nodes[i].tags != undefined){
-//     var t_length = nodes[i].tags.length;
-//     for(var j = 0; j < t_length; j++){
-//       var tag = nodes[i].tags[j];
-//       if(tag.match("kort") || tag.match("tidkort")){
-//         if(ids_of_filtered[i] <= 0){
-//           ids_of_filtered[i] = 0;
-//         } else { ids_of_filtered[i] -= 1; }
-//       }
-//     }
-//   }
 function unfilter_tags(__filter,__no, _node_tags,_i,__keywords){
   if(__filter == __no && filters[__no] == 1){
     if(_node_tags != undefined){
@@ -557,15 +553,33 @@ function unfilter_tags(__filter,__no, _node_tags,_i,__keywords){
 
 function change_color(d){
   var element = $(d);
-  if(!element.hasClass("btn-outline-primary")){
-    element.addClass("btn-outline-primary");
-  } else {
-    element.removeClass("btn-outline-primary");
+  var text = element.text();
+  // console.log(element);
+  // if(!element.hasClass("active")){
+    // element.addClass("btn-outline-primary");
+  // } else {
+    // element.removeClass("btn-outline-primary");
+  // }
+  if(text.match("Fokusområde")){
+    picked_color_set = 1;
+  } else if (text.match("Rådslag")){
+    picked_color_set = 0;
   }
+  d3.selectAll(".bubble")
+    .transition()
+      .style("fill",function(d){ return mote_color(d);});
+
 }
 
 function mote_color(d){
-  return color(d.meeting);
+  if(picked_color_set == 0){
+    return radslag_colors[d.meeting];
+  } else if (picked_color_set == 1){
+    return omrade_colors[d.omrade];
+  }
+  // console.log(d);
+  // radslag_colors[d.meeting] = color(d.meeting);
+  // return color(d.meeting);
 }
 
 function prepare_meetings(meeting_information){
