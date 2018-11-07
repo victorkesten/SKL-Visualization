@@ -1,22 +1,22 @@
 {
   "nodes" : [
     {
-      "name" : "Handlingsplan",
+      "name" : "Strategi",
       "id" : "final_score",
       "target_source" : 0
     },
     {
-      "name" : "Delmål 1",
+      "name" : "Fokusområde 1",
       "id" : "goal_1",
       "target_source" : 1
     },
     {
-      "name" : "Delmål 2",
+      "name" : "Fokusområde 2",
       "id" : "goal_2",
       "target_source" : 2
     },
     {
-      "name" : "Delmål 3",
+      "name" : "Fokusområde 3",
       "id" : "goal_3",
       "target_source" : 3
     },

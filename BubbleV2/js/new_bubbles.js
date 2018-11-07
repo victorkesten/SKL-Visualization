@@ -14,8 +14,7 @@ var omradeCenters = {
   0: { x: width / 3, y: height / 2 },
   1: { x: width / 2, y: height / 2 },
   2: { x: 2 * width / 3, y: height / 2 },
-  3: { x:0, y:0},
-  'filter' : {x: -10000, y:-10000}
+  3: { x:0, y:0}
 };
 var omrade_titles_x = {
     0: 200,
@@ -35,11 +34,12 @@ var radslag_centers = {};
 var question_omrade = {};
 var ids_of_filtered = [];
 
-var picked_color_set = 0;
+var picked_color_set = 1;
 var radslag_colors = {"f5494ed2-de82-4924-b074-caa57c48db12":"#1f77b4","d327c3e7-60ca-4b66-8330-b5df3ebe5611":"#aec7e8","4ffe534b-4072-43d4-98a0-6ea36de44292":"#ff7f0e","78eea2b5-519b-436f-837a-609cfd175874":"#ffbb78","05f2aa56-6abc-4f4c-bf70-279e702d1819":"#2ca02c","4c01d4e4-39ef-4d1b-81f5-393a3020820c":"#98df8a","97d511ac-1004-4c96-82b0-aff9e04b1b6e":"#d62728","f6923640-4d14-4d5e-b56b-f3e6a495a680":"#ff9896","a436c2d1-511f-4022-95c4-4e13f7ac6d90":"#9467bd","1380b7ff-5be8-4a19-898e-b7f211556e0f":"#c5b0d5","eb205a1f-7b14-46cc-8bfe-63af51114dfe":"#8c564b","be62399b-23bf-4eab-a7d0-46adb502772b":"#c49c94","b8849da1-10ea-40e1-a00f-615d5b7b2de7":"#e377c2","206fe9f4-24e6-40e4-9941-8194592b108d":"#f7b6d2"};
 // var omrade_colors = {0 : "#90EE90", 1 : "#e9bd15", 2: "#6666ff", 3 : "#ff6666"};
-var omrade_colors = {0 : "#ce5a57", 1 : "#78a5a3", 2: "#e1b16a", 3 : "#444c5c"};
-
+var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
+//
+// var omrade_colors = {0 : "yellow", 1 : "green", 2: "blue", 3 : "blakc"};
 
 var clicked_bubble = -1;
 var zoom = d3.zoom()
@@ -88,7 +88,7 @@ var simulation = d3.forceSimulation()
   .force('charge', d3.forceManyBody().strength(charge))
   .on('tick', ticked);
 
-  simulation.stop();
+simulation.stop();
 
 // Moving
 function charge(d) {
@@ -149,7 +149,7 @@ function chart(rawData,t) {
     .attr('r', 0)
     .style("stroke","black")
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 1)
+    .attr('stroke-width', 0.4)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
@@ -290,7 +290,7 @@ function redraw_bubbles(new_nodes){
     .attr('r', 0)
     .style("stroke","black")
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 1)
+    .attr('stroke-width', 0.4)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
