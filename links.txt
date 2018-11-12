@@ -47,6 +47,10 @@ https://gist.github.com/mbostock/1095795
 https://stackoverflow.com/questions/23825126/how-to-update-bubble-chart-in-d3-js
 http://bl.ocks.org/alansmithy/e984477a741bc56db5a5
 
+
+// SO GOOD
+https://stackoverflow.com/questions/19381375/d3-js-stop-transitions-interrupting-on-mouseover
+
 Double Line graph
   - Förslag/Diskussions
   - On hover, få mer Detaljer

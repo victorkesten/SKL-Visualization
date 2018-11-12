@@ -1,47 +1,95 @@
 var width = 960;
 // var height = 540;
-var height = 400;
+// var height = 400;
+var height = document.getElementById("bubbles_svg_area").clientHeight;
+
 
 var center = { x: width / 2, y: height / 2 };
 var meet_info;
+
 var omrade_titles = {
   0: "Digtal Kompetens",
   1: "Likvärdig Tillgång och Användning",
-  2: "Forskning och Uppföljning",
-  3: "Annat"
+  2: "Forskning och Uppföljning"
 };
 var omradeCenters = {
   0: { x: width / 3, y: height / 2 },
   1: { x: width / 2, y: height / 2 },
-  2: { x: 2 * width / 3, y: height / 2 },
-  3: { x:0, y:0}
+  2: { x: 2 * width / 3, y: height / 2 }
 };
 var omrade_titles_x = {
     0: 200,
     1: 420,
-    2: 670,
-    3: -150
+    2: 670
 };
 var omrade_titles_y = {
-  0: -75,
-  1: -75,
-  2: -125,
-  3:50
+  0: 100,
+  1: 100,
+  2: 70
 };
+
+var reg_titles = {
+  0: "Regionala Rådslag",
+  1: "Andra Rådslag",
+};
+var regCenters = {
+  0: { x: width / 3, y: height / 2 },
+  1: { x: width / 2, y: height / 2 },
+};
+var reg_titles_x = {
+    0: 250,
+    1: 500,
+};
+var reg_titles_y = {
+  0: 70,
+  1: 65,
+};
+
+var tid_titles = {
+  0: "Kort",
+  1: "Medel",
+  2: "Lång",
+  3: "N/A"
+};
+var tidCenters = {
+  0: { x: width / 3, y: height / 2 },
+  1: { x: width / 2, y: height / 2 },
+  2: { x: 2 * width / 3, y: height / 2 },
+  3:  { x: 0 , y: 0 }
+};
+var tid_titles_x = {
+    0: 320,
+    1: 520,
+    2: 720,
+    3: -40
+};
+var tid_titles_y = {
+  0: 110,
+  1: 110,
+  2: 130,
+  3: 90
+};
+
 var radslag_titles_x = {};
 var radslag_titles_y = {};
 var radslag_centers = {};
+
 var question_omrade = {};
 var ids_of_filtered = [];
 
+// COLORS
 var picked_color_set = 1;
 var radslag_colors = {"f5494ed2-de82-4924-b074-caa57c48db12":"#1f77b4","d327c3e7-60ca-4b66-8330-b5df3ebe5611":"#aec7e8","4ffe534b-4072-43d4-98a0-6ea36de44292":"#ff7f0e","78eea2b5-519b-436f-837a-609cfd175874":"#ffbb78","05f2aa56-6abc-4f4c-bf70-279e702d1819":"#2ca02c","4c01d4e4-39ef-4d1b-81f5-393a3020820c":"#98df8a","97d511ac-1004-4c96-82b0-aff9e04b1b6e":"#d62728","f6923640-4d14-4d5e-b56b-f3e6a495a680":"#ff9896","a436c2d1-511f-4022-95c4-4e13f7ac6d90":"#9467bd","1380b7ff-5be8-4a19-898e-b7f211556e0f":"#c5b0d5","eb205a1f-7b14-46cc-8bfe-63af51114dfe":"#8c564b","be62399b-23bf-4eab-a7d0-46adb502772b":"#c49c94","b8849da1-10ea-40e1-a00f-615d5b7b2de7":"#e377c2","206fe9f4-24e6-40e4-9941-8194592b108d":"#f7b6d2"};
 // var omrade_colors = {0 : "#90EE90", 1 : "#e9bd15", 2: "#6666ff", 3 : "#ff6666"};
-var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
-//
-// var omrade_colors = {0 : "yellow", 1 : "green", 2: "blue", 3 : "blakc"};
+// var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
+// Mjuka glass färger.
+// var omrade_colors = {0 : "#a3e9c4", 1 : "#f1b3cf", 2: "#f2d7b2", 3 : "black"};
+var omrade_colors = {0 : "#b49dc2", 2 : "#e6b87b", 1: "#3ab8a2", 3 : "black"};
+// var omrade_colors = {0 : "#97ba4c", 2 : "#367d85", 1: "#edbd00", 3 : "black"};
 
-var clicked_bubble = -1;
+// var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
+// var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
+
 var zoom = d3.zoom()
     .scaleExtent([.2, 20])
     .on("zoom", zoomed);
@@ -52,9 +100,12 @@ var svg = d3.select("svg")
 
 var g = svg.append("g");
 
-var tooltip = d3.select("body").append("div")
+var tooltip_visible = 0;
+var tooltip = d3.select("html").append("div")
     .attr("class", "tooltip_bubble")
+    .attr("id","tooltip_bub")
     .style("opacity", 0);
+
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -107,13 +158,15 @@ function createNewNodes(rawData){
   var myNodes = rawData.map(function (d,i){
     return {
       id: (i+1),
-      radius: 15,
+      radius: 10,
       value: Math.random() * 10,
       tag: d.hashtag,
       author: d.author,
       message: d.text,
       meeting: d.meeting_id,
       omrade: convert_omrade(d.question_id),
+      tid: convert_tid(d.tags),
+      radslag_type : get_radslag_type(d.meeting_id),
       question: d.question_id,
       type: d.type,
       path: d.path,
@@ -129,6 +182,7 @@ function createNewNodes(rawData){
 //https://github.com/vlandham/bubble_chart_v4
 //http://vallandingham.me//bubble_charts_with_d3v4.html
 function chart(rawData,t) {
+  height = document.getElementById("bubbles_svg_area").clientHeight;
   var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
 
   var radiusScale = d3.scalePow()
@@ -140,6 +194,8 @@ function chart(rawData,t) {
   // Set the force's nodes to our newly created nodes array.
 
   // Bind nodes data to what will become DOM elements to represent them.
+  // REPRESENT Discussion posts as actual polygons (hexagons) and link a radius to them.
+  //https://codepen.io/cwmanning/pen/Hugye
   bubbles = g.selectAll('.bubble')
     .data(nodes, function (d) { return d.id; });
 
@@ -149,14 +205,14 @@ function chart(rawData,t) {
     .attr('r', 0)
     .style("stroke","black")
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 0.4)
+    .attr('stroke-width', 0.1)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
 
   bubbles = bubbles.merge(bubblesE);
 
-  bubbles.transition()
+  bubbles.transition("change_bigger")
     .duration(2000)
     .attr('r', function (d) { return d.radius; });
 
@@ -170,6 +226,9 @@ function chart(rawData,t) {
   // Create the title elements
   create_radslag_titles();
   create_omrade_titles();
+  create_tid_titles();
+  create_reg_titles();
+  create_legend();
 
   d3.selectAll(".badge")
     .on("click",function(d){
@@ -189,10 +248,19 @@ function chart(rawData,t) {
 function handleMouseOverCircle(d){
   var id = d.id;
   this.parentNode.appendChild(this);
-  d3.selectAll(".bubble")
-    .filter(function(d){if(d.id==id){return false;}return true;})
-    .transition()
-      .style("opacity","0.3");
+  // d3.selectAll(".bubble")
+  //   .filter(function(d){if(d.id==id){return false;}return true;})
+  //   .transition()
+  //     .style("opacity","0.3");
+
+  var strok_s = 2;
+  if(this === cur_bub){
+    strok_s = 3;
+  }
+  d3.select(this)
+    .transition("mouse-over-trans")
+    .duration(100)
+    .style('stroke-width',strok_s);
 
   var meeting_name = ""
   var question_t = "";
@@ -208,6 +276,7 @@ function handleMouseOverCircle(d){
       }
     }
   }
+  tooltip_visible = 1;
   tooltip.transition().style("opacity", .9);
   tooltip.html("<b>"+meeting_name + "</b><br>" + question_t)
     .style("left", (d3.event.pageX) + "px")
@@ -216,36 +285,34 @@ function handleMouseOverCircle(d){
 }
 
 function handleMouseOutCircle(d){
-  tooltip.transition().style("opacity", 0);
-  d3.selectAll(".bubble")
+  tooltip_visible = 0;
+  tooltip.transition().style("opacity", 0).style("display","initial");
+
+  // if()
+  d3.select(this)
+    .filter(function(){
+      if(this === cur_bub){
+        return false;
+      }
+      return true;
+    })
     .transition()
-      .style("opacity","1");
+    .style('stroke-width',0.1);
 }
+var cur_bub;
 
 function handleClickCircle(d){
-  // d3.select(d)
-  $(".check_text").text(JSON.stringify(radslag_colors));
-  console.log(d);
-  var id = d.id;
-  d3.selectAll(".bubble")
-    .filter(function(d){
-      if(d.id==id){
-        return true;
-      }
-      return false;})
+  d3.select(cur_bub)
+    .classed("clicked-bubble",false)
     .transition()
-      .style("fill","black");
-  if(clicked_bubble != -1){
-    d3.selectAll(".bubble")
-      .filter(function(d){
-        if(d.id==clicked_bubble){
-          return true;
-        }
-        return false;})
-      .transition()
-        .style("fill",function(d){ return mote_color(d);});
-  }
-  clicked_bubble = id;
+    .style('stroke-width',.1);
+
+  cur_bub = this;
+  d3.select(cur_bub)
+    .classed("clicked-bubble",true)
+    .transition()
+    .style('stroke-width',3);
+
   $("#info_box").css("display","initial");
   $("#card_header").html("<a href='https://skl.voteit.se"+d.path+"'>#"+d.tag+"</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
   var meeting_name = ""
@@ -269,34 +336,37 @@ function handleClickCircle(d){
   $("#card_description").text(d.message);
   // console.log(d.tags);
   var pill_string = "";
-  for(var i = 0; i < d.tags.length-1; i++){
-    var s = d.tags[i];
-    var t = s.charAt(0).toUpperCase() + s.substr(1);
-    pill_string += "<span class='badge badge-pill badge-primary'>"+t+"</span>\n";
+  if(d.tags != undefined){
+    for(var i = 0; i < d.tags.length-1; i++){
+      var s = d.tags[i];
+      var t = s.charAt(0).toUpperCase() + s.substr(1);
+      pill_string += "<span class='badge badge-pill badge-voteit'>"+t+"</span>\n";
+    }
   }
   $("#pills").html(pill_string);
 }
 
+var filter_var_count = 0;
 /** Attempt at Filtering and Redrawing **/
 function redraw_bubbles(new_nodes){
   bubbles = g.selectAll('.bubble')
     .data(new_nodes, function (d) { return d.id; });
 
   bubbles.exit().transition(1000).attr('r',0).remove();
-
+  filter_var_count++;
   var bubblesE = bubbles.enter().append('circle')
     .classed('bubble', true)
     .classed('no-filter',true)
     .attr('r', 0)
     .style("stroke","black")
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 0.4)
+    .attr('stroke-width', 0.1)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
     bubbles = bubbles.merge(bubblesE);
-    bubbles.transition()
-      .duration(1000)
+    bubbles.transition("change_bigger" + filt_option)
+      .duration(500)
       .attr('r', function (d) { return d.radius; });
   restart_simulation(new_nodes);
 }
@@ -315,6 +385,10 @@ function move_bubbles(opt){
     simulation.force('x', d3.forceX().strength(forceStrength).x(omrade_view));
   } else if (opt == 2){
     simulation.force('x', d3.forceX().strength(forceStrength).x(radslag_view));
+  } else if (opt == 3){
+    simulation.force('x', d3.forceX().strength(forceStrength).x(tid_view));
+  } else if (opt == 4){
+    simulation.force('x', d3.forceX().strength(forceStrength).x(reg_view));
   }
   simulation.alpha(1).restart();
   toggle_title();
@@ -331,8 +405,17 @@ function change_view(option){
 function omrade_view(d){
   return omradeCenters[d.omrade].x;
 }
+
+function tid_view(d){
+  return tidCenters[d.tid].x;
+}
+
 function radslag_view(d){
   return radslag_centers[d.meeting].x;
+}
+
+function reg_view(d){
+  return regCenters[d.radslag_type].x;
 }
 function moveToCenter(alpha) {
   return function (d) {
@@ -357,7 +440,7 @@ var filters = [ 0,0,0,0,0,
                 0,0,0,0,0,
                 0,0,0,0,0,
                 0,0,0,0];
-var option = 0;
+var filt_option = 0;
 var filtered_bubbles = [];
 var option_words = ["Digital Kompetens","Likvärdig Tillgång / Användning","Forskning och Uppföljning","Annat","Kort","Medel","Lång","N/A",
 "Departement","Forskare","Huvudman","Lärare","Kommunpolitiken","SKL","Lärarutbildningarna","Lärosäten","Regeringen","Regionen","Skolledning",
@@ -365,15 +448,16 @@ var option_words = ["Digital Kompetens","Likvärdig Tillgång / Användning","Fo
 
 function filter_badge(d){
   var element = $(d);
+
   var text = element.text();
   var _filter = -1;
   console.log(text);
-  if(element.hasClass("badge_outline_primary")){
-    element.removeClass("badge_outline_primary");
-    element.addClass("badge-primary");
+  if(element.hasClass("badge_outline_voteit")){
+    element.removeClass("badge_outline_voteit");
+    element.addClass("badge-voteit");
   } else {
-    element.removeClass("badge-primary");
-    element.addClass("badge_outline_primary");
+    element.removeClass("badge-voteit");
+    element.addClass("badge_outline_voteit");
   }
 
   for(var tt = 0; tt < option_words.length; tt++){
@@ -384,7 +468,7 @@ function filter_badge(d){
       break;
     }
   }
-
+  filt_option = _filter;
   simulation.stop();
 
   for(var i = 0; i < nodes.length; i++){
@@ -395,14 +479,13 @@ function filter_badge(d){
       } else { ids_of_filtered[i] -= 1; }}
     if(_filter == 1 && filters[1] == 1 && nodes[i].omrade == 1){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
     if(_filter == 2 && filters[2] == 1 && nodes[i].omrade == 2){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
-    if(_filter == 3 && filters[3] == 1 && nodes[i].omrade == 3){if(ids_of_filtered[i] <= 0){ids_of_filtered[i] = 0;} else { ids_of_filtered[i] -= 1; } }
     unfilter_tags(_filter,4,nodes[i].tags,i,["kort","tidkort"]);
     unfilter_tags(_filter,5,nodes[i].tags,i,["medel","tidmedel","medeltid"]);
     unfilter_tags(_filter,6,nodes[i].tags,i,["lång","långtid","tidlång"]);
     if(_filter == 7 && filters[7] == 1){
       if(nodes[i].tags != undefined){
         var t_length = nodes[i].tags.length;
-        console.log(nodes[i].tags);
+        // console.log(nodes[i].tags);
         if(t_length <= 0){
           if(ids_of_filtered[i] <= 0){
             ids_of_filtered[i] = 0;
@@ -449,7 +532,6 @@ function filter_badge(d){
     if(_filter == 0 && filters[0] == 0 && nodes[i].omrade == 0){ids_of_filtered[i] += 1;}
     if(_filter == 1 && filters[1] == 0 && nodes[i].omrade == 1){ids_of_filtered[i] += 1;}
     if(_filter == 2 && filters[2] == 0 && nodes[i].omrade == 2){ids_of_filtered[i] += 1;}
-    if(_filter == 3 && filters[3] == 0 && nodes[i].omrade == 3){ids_of_filtered[i] += 1;}
 
     filter_tags(_filter,4,nodes[i].tags,i,["kort","tidkort"]);
     filter_tags(_filter,5,nodes[i].tags,i,["medel","tidmedel","medeltid"]);
@@ -586,30 +668,30 @@ function prepare_meetings(meeting_information){
   for(var i = 0; i < meeting_information.length; i++){
     // console.log(meeting_information[i].title);
     if(i > 6){
-      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200 +60 ), y: height/2};
+      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200  ), y: (height/2)};
       radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200;
     } else {
-      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200 +60 ), y: height/2};
+      radslag_centers[meeting_information[i].uid] = {x: ((meeting_information.length-i) * 200 +110 ), y: height/2};
       radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
     }
 
     // Need some speciality here due to size and clashing.
     if(meeting_information[i].title.match('Rådslag 2 \\| Fokusområde Digital kompetens för alla i skolväsendet')){
-      radslag_titles_y[meeting_information[i].title] = 30;
+      radslag_titles_y[meeting_information[i].title] = 150;
       radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 - 60;
     }else  if(meeting_information[i].title.match('Learning forum 2018')){
-      radslag_titles_y[meeting_information[i].title] = -40;
-      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 75;
+      radslag_titles_y[meeting_information[i].title] = 100;
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 100;
     } else if(meeting_information[i].title.match('Regionalt Rådslag \\| Östergötland')){
-      radslag_titles_y[meeting_information[i].title] = 60;
+      radslag_titles_y[meeting_information[i].title] = 150;
       radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
     } else if(meeting_information[i].title.match('Rådslag 1 \\| Fokusområde Digital kompetens för alla i skolväsendet')){
-      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 150;
-      radslag_titles_y[meeting_information[i].title] = 60;
+      radslag_titles_x[meeting_information[i].title] = (meeting_information.length-i) * 200 + 130;
+      radslag_titles_y[meeting_information[i].title] = 120;
 
     }
      else {
-      radslag_titles_y[meeting_information[i].title] = 20;
+      radslag_titles_y[meeting_information[i].title] = 170;
     }
   }
 }
@@ -617,6 +699,36 @@ function prepare_meetings(meeting_information){
 function convert_omrade(q_id){
   return question_omrade[q_id];
 }
+
+function convert_tid(tags){
+  if(tags == undefined){
+    return 3;
+  }
+  for(var i = 0; i < tags.length; i++){
+    var key = tags[i];
+    if(key.match("kort") || key.match("tidkort")){
+      return 0;
+    }
+    if(key.match("medel") || key.match("tidmedel") || key.match("medeltid")){
+      return 1;
+    }
+    if(key.match("lång") || key.match("långtid") || key.match("tidlång")){
+      return 2;
+    }
+  }
+  return 3;
+}
+
+function get_radslag_type(uid){
+  for(var i = 0; i < meet_info.length; i++){
+    var k = meet_info[i].uid;
+    if(k.match(uid)){
+      return meet_info[i].radslag_type;
+    }
+  }
+  return 0;
+}
+
 
 function create_radslag_titles(){
   var radslagData = d3.keys(radslag_titles_x);
@@ -646,8 +758,58 @@ years.enter().append('text')
   .text(function (d) { return omrade_titles[d]; });
 }
 
+function create_tid_titles(){
+  var omradeData = d3.keys(tid_titles);
+  var years = g.selectAll('.tidTitles')
+  .data(omradeData);
+
+years.enter().append('text')
+  .attr('class', 'tidTitles')
+  .attr('display','none')
+  .attr('x', function (d) { return tid_titles_x[d]; })
+  .attr('y', function(d){  return tid_titles_y[d];})
+  .attr('text-anchor', 'middle')
+  .text(function (d) { return tid_titles[d]; });
+}
+
+function create_reg_titles(){
+  var omradeData = d3.keys(reg_titles);
+  var years = g.selectAll('.regtitles')
+  .data(omradeData);
+
+years.enter().append('text')
+  .attr('class', 'regTitles')
+  .attr('display','none')
+  .attr('x', function (d) { return reg_titles_x[d]; })
+  .attr('y', function(d){  return reg_titles_y[d];})
+  .attr('text-anchor', 'middle')
+  .text(function (d) { return reg_titles[d]; });
+}
+
 function hide_infobox(){
   $("#info_box").css("display","none");
+}
+
+var about_showed = 1;
+function toggle_about(a){
+  if(a == 0){
+    d3.select(".about_box")
+      .style("display","initial");
+
+    d3.select(".inner_content")
+      // .transition()
+      // .style('filter','blur(2px)');
+      //     filter: blur(2px);
+
+      .classed("blurredElement",true);
+  } else if(a == 1) {
+    d3.select(".about_box")
+      .style("display","none");
+
+    d3.select(".inner_content")
+      .classed("blurredElement",false);
+  }
+  about_showed = a;
 }
 
 function toggle_title(opt){
@@ -661,4 +823,87 @@ function toggle_title(opt){
   } else {
     $(".omradeTitles").css("display","none");
   }
+  if(view_option == 3){
+    $(".tidTitles").css("display","initial");
+  } else {
+    $(".tidTitles").css("display","none");
+  }
+  if(view_option == 4){
+    $(".regTitles").css("display","initial");
+  } else {
+    $(".regTitles").css("display","none");
+  }
 }
+
+
+function create_legend(){
+
+  var t = svg.append("g")
+  .classed('legend','true')
+  // .attr('x',50);
+  var spec_height = height - 20;
+  var width_s = 170
+  var extra_width = 30;
+  var xt = t.selectAll('.legend')
+    .data(d3.keys(omrade_titles));
+
+  xt.enter().append('rect')
+    .attr('width','10')
+    .attr('height','10')
+    .attr('x', function(d){
+      return  (d*width_s) + extra_width + 50;
+    })
+    .attr('y',spec_height)
+    .attr('fill',function(d){
+      // console.log(d);
+      return omrade_colors[d];
+    })
+    .classed('legend_rect','true');
+    // .text("hello");
+    xt.enter().append('text')
+    .attr('x', function(d){
+      if(d == 0){
+        return (d*width_s) + extra_width + 105;
+      }
+      if(d == 1){
+        return d*width_s+extra_width +140;
+      }
+      if(d == 2){
+        return d*width_s+extra_width + 122;
+      }
+      return  d*width_s+extra_width + 110;
+    })
+    .attr('y',spec_height + 8)
+    .text(function(d){
+      return omrade_titles[d];
+    });
+}
+
+
+window.addEventListener('click', function(e){
+  if (document.getElementById('about_box').contains(e.target)){
+    // Clicked in box
+  } else{
+    // Clicked outside the box
+    if(!document.getElementById('about_tog').contains(e.target) && about_showed == 0){
+      toggle_about(1);
+    }
+  }
+});
+
+window.addEventListener("mousemove", function(e){
+  // console.log(e);
+  if(tooltip_visible == 1){
+    var y = e.clientY+18;
+    var x = e.clientX-80;
+    var y_cap = document.getElementById("tooltip_bub").clientHeight;
+    if(y > height-y_cap){
+      y = height-y_cap;
+    }
+    if(x > 1200){
+      x = 1200;
+    }
+    tooltip.style("left", x + "px")
+        .style("top", y + "px");
+  }
+});

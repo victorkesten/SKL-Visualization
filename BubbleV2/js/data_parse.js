@@ -43,6 +43,7 @@ function parse_file(){
 
 
   q.defer(d3.json, 'data/real/q_o.json');
+  q.defer(d3.json, 'data/real/meeting_info.json');
 
   // First we read
 
@@ -50,13 +51,31 @@ function parse_file(){
     if(error) throw error;
     // var fin_d = process_data(data_list[1]);
     for(var i = 1; i < data_list.length; i++){
-      if(i == data_list.length-1){
+      if(i == data_list.length-2){
         question_id_omrade = data_list[i];
         // console.log(question_id_omrade);
+      } else if(i == data_list.length-1){
+        for(var k = 0; k < meeting_information.length;k++){
+          meeting_information[k].radslag_type = data_list[i][k].radslag_type;
+        }
       } else {
         process_data(data_list[i]);
       }
     }
+    // var list = [];
+    // var text = "";
+    // for(var k = 0; k < meeting_information.length; k++){
+    //   var d = {};
+    //   // console.log(meeting_information);
+    //   d.uid = meeting_information[k].uid;
+    //   d.title = meeting_information[k].title;
+    //   d.radslag_type = 0;
+    //   list.push(d);
+    //   // console.log(d);
+    //   // text += JSON.stringify(d);
+    // }
+    // $(".check_text").text(JSON.stringify(list));
+
     start_program(meeting_data, meeting_information, question_id_omrade);
   });
 }
@@ -88,6 +107,7 @@ function add_meeting(data){
   d.title = data.title;
   d.uid = data.uid;
   d.id = meeting_information.length;
+  d.radslag_type = radslag_type(data.uid);
   var questions = [];
   var no_q = d.manifest.AgendaItem;
   // console.log(no_q);
@@ -171,6 +191,12 @@ function read_list_of_files(){
   d3.csv("data/names.csv",function(error, data){
     console.log(data);
   });
+}
+
+function radslag_type(uid){
+  // Cross reference uid type with radslag_type list_of_files
+
+  return 0;
 }
 
 parse_file();

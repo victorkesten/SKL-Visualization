@@ -1,0 +1,72 @@
+[
+    {
+        "uid":"b8849da1-10ea-40e1-a00f-615d5b7b2de7",
+        "title":"Regionalt Rådslag | Göteborg",
+        "radslag_type":0
+    },
+    {
+        "uid":"4ffe534b-4072-43d4-98a0-6ea36de44292",
+        "title":"Rådslag 1 | Fokusområde forskning och uppföljning",
+        "radslag_type":1
+    },
+    {
+        "uid":"eb205a1f-7b14-46cc-8bfe-63af51114dfe",
+        "title":"Regionalt Rådslag | Skåne",
+        "radslag_type":0
+    },
+    {
+        "uid":"1380b7ff-5be8-4a19-898e-b7f211556e0f",
+        "title":"Rådslag 1 | Fokusområde Digital kompetens för alla i skolväsendet",
+        "radslag_type":1
+    },
+    {
+        "uid":"206fe9f4-24e6-40e4-9941-8194592b108d",
+        "title":"Rådslag 1 | Fokusområde Likvärdig tillgång och användning",
+        "radslag_type":1
+    },
+    {
+        "uid":"97d511ac-1004-4c96-82b0-aff9e04b1b6e",
+        "title":"Regionalt Rådslag | Östergötland",
+        "radslag_type":0
+    },
+    {
+        "uid":"f5494ed2-de82-4924-b074-caa57c48db12",
+        "title":"Learning forum 2018",
+        "radslag_type":1
+    },
+    {
+        "uid":"f6923640-4d14-4d5e-b56b-f3e6a495a680",
+        "title":"Regionalt Rådslag | Norrbotten",
+        "radslag_type":0
+    },
+    {
+        "uid":"be62399b-23bf-4eab-a7d0-46adb502772b",
+        "title":"Regionalt Rådslag | Västerbotten",
+        "radslag_type":0
+    },
+    {
+        "uid":"d327c3e7-60ca-4b66-8330-b5df3ebe5611",
+        "title":"Rådslag Gymnasiekonferens 2018",
+        "radslag_type":0
+    },
+    {
+        "uid":"4c01d4e4-39ef-4d1b-81f5-393a3020820c",
+        "title":"Rådslag #16 kommuner",
+        "radslag_type":0
+    },
+    {
+        "uid":"78eea2b5-519b-436f-837a-609cfd175874",
+        "title":"Regionalt Rådslag | Jönköping",
+        "radslag_type":0
+    },
+    {
+        "uid":"05f2aa56-6abc-4f4c-bf70-279e702d1819",
+        "title":"Regionalt Rådslag | Örebro",
+        "radslag_type":0
+    },
+    {
+        "uid":"a436c2d1-511f-4022-95c4-4e13f7ac6d90",
+        "title":"Rådslag 2 | Fokusområde Digital kompetens för alla i skolväsendet",
+        "radslag_type":1
+    }
+]
