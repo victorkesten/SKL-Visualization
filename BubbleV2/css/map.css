@@ -1,0 +1,29 @@
+
+.boundary {
+  fill: none;
+  stroke: #000;
+  stroke-width: .2px;
+}
+.graticule {
+  fill: none;
+  /* stroke: #777; */
+  stroke:#000;
+  stroke-width: .2px;
+  /* stroke-opacity: .5; */
+}
+
+.tooltip2_bubble {
+   position: absolute;
+   /* visibility: hidden; */
+   text-align: center;
+   top:0;
+   /* width: 60px; */
+   /* height: 28px; */
+   padding: 2px;
+   font: 12px sans-serif;
+   /* background: lightsteelblue; */
+   background: white;
+   border: 1px solid black;
+   border-radius: 3px;
+   pointer-events: none;
+}

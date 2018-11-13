@@ -1,0 +1,92 @@
+[
+    {
+      "namn" : "Regionalt Rådslag | Örebro",
+      "id" : 0,
+      "coordinates" : {
+        "x" : 15.2134,
+        "y" : 59.2753
+      },
+      "kommuner" : ["Lund","Skövde","Växjö","Karlstad","Umeå","Norrköping","Linköping","Skellefteå","Örebro","Jönköping"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Jönköping",
+      "id" : 1,
+      "coordinates" : {
+        "x" : 14.1618,
+        "y" : 57.7826
+      },
+      "kommuner" : []
+    },
+    {
+      "namn" : "Rådslag #16 kommuner",
+      "id" : 2,
+      "coordinates" : {
+        "x" : 18.0686,
+        "y" : 59.3293
+      },
+      "kommuner" : ["Skellefteå","Lund","Växjö","Jönköping","Umeå","Linköping","Uppsala","Luleå","Örebro","Karlstad","Sundsvall","Gävle","Eskilstuna","Skövde","Norrköping","Helsingborg","Västerås"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Västerbotten",
+      "id" : 3,
+      "coordinates" : {
+        "x" : 20.9509,
+        "y" : 64.7502
+      },
+      "kommuner" : ["Vännäs","Robertsfors", "Skellefteå"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Norrbotten",
+      "id" : 4,
+      "coordinates" : {
+        "x" : 22.1567,
+        "y" : 65.5848
+      },
+      "kommuner" : ["Luleå","Kiruna","Boden","Pitea","Gällivare","Happaranda","Alvsbyn","Lappland","Pajala"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Östergötland",
+      "id" : 5,
+      "coordinates" : {
+        "x" : 15.6214,
+        "y" : 58.4108
+      },
+      "kommuner" : []
+    },
+    {
+      "namn" : "Regionalt Rådslag | Skåne",
+      "id" : 6,
+      "coordinates" : {
+        "x" : 13.0038,
+        "y" : 55.6050
+      },
+      "kommuner" : ["Ystad","Malmö","Staffanstorp","Skurup","Tomelilla","Östra Göinge","Eslöv","Lund","Lomma","Trelleborg","Hässleholm","Kävlinge","Osby","Bromölla","Hörby"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Göteborg",
+      "id" : 7,
+      "coordinates" : {
+        "x" : 11.9746,
+        "y" : 57.7089
+      },
+      "kommuner" : ["Stenungsund","Lerum","Kungälv","Alingsås","Mölndal","Öckerö","Göteborg","Kungsbacka","Tjörn","Ale","Härryda"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Norrköping",
+      "id" : 8,
+      "coordinates" : {
+        "x" : 16.1924,
+        "y" : 58.5877
+      },
+      "kommuner" : ["Linköping","Norrköping","Ödeshög"]
+    },
+    {
+      "namn" : "Regionalt Rådslag | Gotland",
+      "id" : 9,
+      "coordinates" : {
+        "x" : 18.2948,
+        "y" : 57.6348
+      },
+      "kommuner" : ["Gotland"]
+    }
+]
