@@ -907,7 +907,23 @@ window.addEventListener('click', function(e){
     if(!document.getElementById('about_tog').contains(e.target) && about_showed == 0){
       toggle_about(1);
     }
-  //https://gomakethings.com/listening-for-click-events-with-vanilla-javascript/
+  }
+  if(document.getElementById('bubbles_svg_area').contains(e.target)){
+    // console.log(document.getElementById('bubbles_svg_area'));
+    // var xta = document.getElementsByClassName("bubble");
+    // console.log(xta);
+    // for(var i = 0; i < xta.length; i++){
+    //   if(xta[0].contains(e.target)){
+    //     console.log(1);
+    //     return;
+    //   }
+    // }
+    // show_intro();
+  } else {
+    //
+    // if(document.getEle)
+
+  }
 });
 
 window.addEventListener("mousemove", function(e){
