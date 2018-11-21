@@ -1,4 +1,5 @@
-var width = 960;
+// var width = 960;
+var width =  document.getElementById("bubbles_svg_area").clientWidth;
 // var height = 540;
 // var height = 400;
 var height = document.getElementById("bubbles_svg_area").clientHeight;
@@ -8,9 +9,9 @@ var center = { x: width / 2, y: height / 2 };
 var meet_info;
 
 var omrade_titles = {
-  0: "Digtal Kompetens",
-  1: "Likvärdig Tillgång och Användning",
-  2: "Forskning och Uppföljning"
+  0: "Digtal kompetens",
+  1: "Likvärdig tillgång och användning",
+  2: "Forskning och uppföljning"
 };
 var omradeCenters = {
   0: { x: width / 3, y: height / 2 },
@@ -85,6 +86,7 @@ var radslag_colors = {"f5494ed2-de82-4924-b074-caa57c48db12":"#1f77b4","d327c3e7
 // Mjuka glass färger.
 // var omrade_colors = {0 : "#a3e9c4", 1 : "#f1b3cf", 2: "#f2d7b2", 3 : "black"};
 var omrade_colors = {0 : "#b49dc2", 2 : "#e6b87b", 1: "#3ab8a2", 3 : "black"};
+var omrade_stroke_colors = {0:"#906EA5" , 2 : "#DA953B", 1 : "#287E6F", 3 : "black"};
 // var omrade_colors = {0 : "#97ba4c", 2 : "#367d85", 1: "#edbd00", 3 : "black"};
 
 // var omrade_colors = {0 : "#ec7079", 1 : "rgba(176,168,214,1)", 2: "#bedda1", 3 : "black"};
@@ -113,6 +115,8 @@ var view_option = 0;
 
 // nodes and other variables.
 var damper = 0.102;
+// var damper = 0.5
+// var damper = 5;
 var bubbles = null;
 var nodes = [];
 
@@ -132,8 +136,10 @@ function zoomed() {
 //https://stackoverflow.com/questions/41341248/migrating-d3-v3-to-d3-v4-in-circle-force-layout-chart
 // 0.03
 var forceStrength = 0.025;
+// var forceStrength = 0.010;
 var simulation = d3.forceSimulation()
   .velocityDecay(0.2)
+  // .velocityDecay(0.3)
   .force('x', d3.forceX().strength(forceStrength).x(center.x))
   .force('y', d3.forceY().strength(forceStrength).y(center.y))
   .force('charge', d3.forceManyBody().strength(charge))
@@ -158,7 +164,8 @@ function createNewNodes(rawData){
   var myNodes = rawData.map(function (d,i){
     return {
       id: (i+1),
-      radius: 10,
+      // radius: 10,
+      radius : 20 * Math.random(),
       value: Math.random() * 10,
       tag: d.hashtag,
       author: d.author,
@@ -203,9 +210,10 @@ function chart(rawData,t) {
     .classed('bubble', true)
     .classed('no-filter',true)
     .attr('r', 0)
-    .style("stroke","black")
+    // .style("stroke","black")
+    .style("stroke",function(d){return mote_stroke_color(d);})
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 0.1)
+    .attr('stroke-width', 0.3)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
@@ -297,7 +305,7 @@ function handleMouseOutCircle(d){
       return true;
     })
     .transition()
-    .style('stroke-width',0.1);
+    .style('stroke-width',0.3);
 }
 var cur_bub;
 
@@ -305,16 +313,19 @@ function handleClickCircle(d){
   d3.select(cur_bub)
     .classed("clicked-bubble",false)
     .transition()
-    .style('stroke-width',.1);
+    .style('stroke',function(d){return mote_stroke_color(d)})
+    .style('stroke-width',.3);
 
   cur_bub = this;
   d3.select(cur_bub)
     .classed("clicked-bubble",true)
     .transition()
+    .style('stroke','black')
+
     .style('stroke-width',3);
 
   $("#info_box").css("display","initial");
-  $("#card_header").html("<a href='https://skl.voteit.se"+d.path+"'>#"+d.tag+"</a>" + "<span style=\"float:right;cursor:pointer;\"><button type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"hide_infobox()\" aria-hidden=\"true\">&times;</span></button></span>");
+  $("#card_header").html("<a href='https://skl.voteit.se"+d.path+"'>#"+d.tag+"</a>" + "</span>");
   var meeting_name = ""
   var omrade_t = omrade_titles[d.omrade];
   var question_t = "";
@@ -358,9 +369,11 @@ function redraw_bubbles(new_nodes){
     .classed('bubble', true)
     .classed('no-filter',true)
     .attr('r', 0)
-    .style("stroke","black")
+    // .style("stroke","black")
+    .style("stroke",function(d){return mote_stroke_color(d);})
+
     .style("fill",function(d){ return mote_color(d);})
-    .attr('stroke-width', 0.1)
+    .attr('stroke-width', 0.3)
     .on("click",handleClickCircle)
     .on('mouseover', handleMouseOverCircle)
     .on('mouseout', handleMouseOutCircle);
@@ -442,7 +455,7 @@ var filters = [ 0,0,0,0,0,
                 0,0,0,0];
 var filt_option = 0;
 var filtered_bubbles = [];
-var option_words = ["Digital Kompetens","Likvärdig Tillgång / Användning","Forskning och Uppföljning","Annat","Kort","Medel","Lång","N/A",
+var option_words = ["Digital kompetens","Likvärdig tillgång / användning","Forskning och uppföljning","Annat","Kort","Medel","Lång","N/A",
 "Departement","Forskare","Huvudman","Lärare","Kommunpolitiken","SKL","Lärarutbildningarna","Lärosäten","Regeringen","Regionen","Skolledning",
 "Skolverket","Staten","Universitet och högskolerådet","Vinnova","Okategoriserad"];
 
@@ -664,6 +677,10 @@ function mote_color(d){
   // return color(d.meeting);
 }
 
+function mote_stroke_color(d){
+  return omrade_stroke_colors[d.omrade];
+}
+
 function prepare_meetings(meeting_information){
   for(var i = 0; i < meeting_information.length; i++){
     // console.log(meeting_information[i].title);
@@ -841,7 +858,7 @@ function create_legend(){
   var t = svg.append("g")
   .classed('legend','true')
   // .attr('x',50);
-  var spec_height = height - 20;
+  var spec_height = height - 60;
   var width_s = 170
   var extra_width = 30;
   var xt = t.selectAll('.legend')
@@ -850,35 +867,37 @@ function create_legend(){
   xt.enter().append('rect')
     .attr('width','10')
     .attr('height','10')
-    .attr('x', function(d){
-      return  (d*width_s) + extra_width + 50;
+    .attr("stroke","black")
+    .attr("stroke-width",0.3)
+    .attr('x',10)
+    .attr('y',function(d){
+      return d*15 + spec_height;
     })
-    .attr('y',spec_height)
     .attr('fill',function(d){
-      // console.log(d);
       return omrade_colors[d];
     })
     .classed('legend_rect','true');
-    // .text("hello");
-    xt.enter().append('text')
+
+  xt.enter().append('text')
+    .attr("text-anchor","start")
     .attr('x', function(d){
-      if(d == 0){
-        return (d*width_s) + extra_width + 105;
-      }
-      if(d == 1){
-        return d*width_s+extra_width +140;
-      }
-      if(d == 2){
-        return d*width_s+extra_width + 122;
-      }
-      return  d*width_s+extra_width + 110;
+      return 25;
     })
-    .attr('y',spec_height + 8)
+    .attr('y',function(d){
+      return d*15 + spec_height + 8;
+    })
     .text(function(d){
       return omrade_titles[d];
     });
 }
 
+function show_intro(){
+  console.log('we show intro');
+}
+
+window.setInterval(function(){
+  move_bubbles(view_option);
+}, 5000);
 
 window.addEventListener('click', function(e){
   if (document.getElementById('about_box').contains(e.target)){
@@ -888,7 +907,7 @@ window.addEventListener('click', function(e){
     if(!document.getElementById('about_tog').contains(e.target) && about_showed == 0){
       toggle_about(1);
     }
-  }
+  //https://gomakethings.com/listening-for-click-events-with-vanilla-javascript/
 });
 
 window.addEventListener("mousemove", function(e){
