@@ -223,7 +223,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				.nodes(data.nodes)
 				.links(data.links)
 				.layout(chart.features.iterations);
+				// .layout(32);
 
+			// chart.align('right');
 			if (this.features.spread) {
 				this._spreadNodes(data);
 				chart.d3.sankey.relayout();
@@ -367,6 +369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    computeNodeValues();
 	    computeNodeBreadths();
 	    computeNodeDepths(iterations);
+			// computeAbsolutePositions()
 	    computeLinkDepths();
 	    return sankey;
 	  };

@@ -15,8 +15,13 @@ var nodes_list_div = d3.select(".nodes_list")
 
 var node_entries;
 function start_program(){
+
+  // this.tooltip = d3.select(this.svgWrapperRef).append("div")
+  //     .attr("class", "tooltip_bubble")
+  //     .style("opacity", 0);
+
   var q = queue();
-  q.defer(d3.json,'/handlingsplan/data/grupper.json');
+  q.defer(d3.json,'vistool/mock_data.json');
   // load_current_node_system();
   q.awaitAll(function(error,data_list) {
     if (error) throw error;
@@ -31,6 +36,8 @@ function start_program(){
 }
 
 
+
+
 function submit_node(){
   // console.log(nodes_);
   var name = $('#create_node_name').val();
@@ -39,10 +46,40 @@ function submit_node(){
   create_new_node(name,content,nodes_.length);
 }
 
-function create_node(){
-  //Make input box appear.
-  //Call create_new_node;
+function submit_link(){
+  var node_1 = $('#node_link_1').val();
+  var node_2 = $('#node_link_2').val();
+  console.log(node_1);
+  console.log(node_2);
+  create_link(node_1,node_2);
 }
+
+function create_link(a,b){
+  var obj = {};
+  obj.target = parseInt(a);
+  obj.value = 1;
+  obj.source = parseInt(b);
+  links_.push(obj);
+
+  update_sankey(nodes_,links_);
+}
+function remove_link(){
+  var a = $('#node_link_1_remove').val();
+  var b = $('#node_link_2_remove').val();
+  var target = parseInt(a);
+  var source = parseInt(b);
+
+  for(var i = 0; i < links_.length; i++){
+    // console.log(links_[i]);
+    if(links_[i].source == source && links_[i].target == target){
+      // console.log("wat");
+      links_.splice(i,1);
+    }
+  }
+  update_sankey(nodes_,links_);
+}
+
+
 
 // Create a new node
 // A node is a piece of information under a section
@@ -74,7 +111,7 @@ function remove_node_id(id){
   nodes_.splice(id,1);
   destroy_all_connections(id);
   recalculate_node_ids();
-  destroy_all_connections(id);
+  // destroy_all_connections(id);
   recalculate_node_links();
   update_nodes_list();
 }
@@ -104,24 +141,19 @@ function recalculate_node_links(){
   }
 }
 
-// Creates a connection between two nodes.
-function create_connections(){
 
-}
 
 function destroy_all_connections(id){
   for(var i = 0; i < links_.length; i++){
     var link = links_[i];
+    console.log(link);
     if(link.source == id || link.target == id){
+      console.log(1);
       links_.splice(i,1);
     }
   }
 }
 
-// Destroys a created connection
-function destroy_connection(){
-
-}
 
 function show_nodes_list(){
   node_s = nodes_list_div.selectAll('.node_entries')
@@ -149,6 +181,28 @@ function update_nodes_list(){
   update_sankey(nodes_,links_);
 }
 
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// These show and open the input box.
+
+var options = ["create_node","create_link","remove_link"];
+var opened_box = -1;
+
+function show_input(i){
+  opened_box = i;
+  for(var i = 0; i < options.length; i++){
+    if(opened_box != i){
+      $("#"+options[i]).css('display','none');
+    }
+  }
+  $('#'+options[opened_box]).css('display','initial');
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Prints the new JSON file on screen.
 function print_new_json(){
   var fin = {
@@ -156,7 +210,45 @@ function print_new_json(){
     "links" : links_
   };
   $(".texta").text(JSON.stringify(fin));
+  $(".print_text").css("display","initial");
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Cookies
+// This is for storage on your PC.
+function save_plan(){
+  var fin = {
+    "nodes" : nodes_,
+    "links" : links_
+  };
+  setCookie("my_plan",fin,365);
+  alert("Din handlingsplan är nu sparad i en 'Cookie' på din dator och kommer användas vid nästa tillfälle.\n\nFör att vara säker på att du sparar den eller om du vill dela den med andra, klicka på 'Exportera' och spara texten i en separat fil på din dator.")
+  console.log(read_cookie('my_plan'));
 }
 
+
+//https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+//https://stackoverflow.com/questions/11344531/pure-javascript-store-object-in-cookie
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (JSON.stringify(value) || "")  + expires + "; path=/";
+}
+
+function read_cookie(name) {
+ var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+ result && (result = JSON.parse(result[1]));
+ return result;
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 start_program();

@@ -12,7 +12,7 @@ var colors = {
       // 'research_ingredient': '#3f3e47',
       'fallback':            '#5c5b97'
     };
-d3.json("/handlingsplan/data/test.json", function(error, json) {
+d3.json("/handlingsplan/data/product.json", function(error, json) {
   var chart = d3.select("#chart").append("svg").chart("Sankey.Path");
   chart
     .name(label)

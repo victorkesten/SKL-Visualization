@@ -8,13 +8,14 @@ var colors = {
       'goal_2':              '#367d85',
       'goal_3':              '#edbd00',
       'goal_1_1':            'orange',
+      'pillar_4': 'pink',
       // 'research_ingredient': '#3f3e47',
       // 'research_ingredient': '#3f3e47',
       'fallback':            '#5c5b97'
     };
 function make_sankey(){
 
-  d3.json("/handlingsplan/data/test.json", function(error, json) {
+  d3.json("vistool/mock_data.json", function(error, json) {
     $('#chart').empty();
     var chart = d3.select("#chart").append("svg").chart("Sankey.Path");
     chart
@@ -81,8 +82,10 @@ function update_sankey(nodes_,links_){
       .nodeWidth(15)
       .nodePadding(10)
       .spread(true)
-      .iterations(0)
+      .iterations(5)
+      // .layout(32)
       .draw(json);
+      
     function label(node) {
       return node.name.replace(/\s*\(.*?\)$/, '');
     }

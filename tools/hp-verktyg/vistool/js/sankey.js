@@ -41,9 +41,11 @@ d3.sankey = function() {
     computeNodeValues();
     computeNodeBreadths();
     computeNodeDepths(iterations);
+    computeAbsolutePositions(); // add this in sankey.js file
     computeLinkDepths();
     return sankey;
   };
+
 
   sankey.relayout = function() {
     computeLinkDepths();
@@ -150,6 +152,11 @@ d3.sankey = function() {
     nodes.forEach(function(node) {
       node.x *= kx;
     });
+  }
+
+  function computeAbsolutePositions() {
+    console.log(nodes);
+    // console.log('h');
   }
 
   function computeNodeDepths(iterations) {
