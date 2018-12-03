@@ -21,7 +21,7 @@ function start_program(){
   //     .style("opacity", 0);
 
   var q = queue();
-  q.defer(d3.json,'vistool/mock_data.json');
+  q.defer(d3.json,'vistool/del.json');
   // load_current_node_system();
   q.awaitAll(function(error,data_list) {
     if (error) throw error;
@@ -79,6 +79,11 @@ function remove_link(){
   update_sankey(nodes_,links_);
 }
 
+function edit_node(){
+  // selecteD_node;
+  console.log(nodes_[selecteD_node]);
+}
+
 
 
 // Create a new node
@@ -108,12 +113,17 @@ function remove_node_id(id){
   //   alert('You cannot delete this node. It is part of the core structure');
   //   return;
   // }
-  nodes_.splice(id,1);
-  destroy_all_connections(id);
-  recalculate_node_ids();
-  // destroy_all_connections(id);
-  recalculate_node_links();
-  update_nodes_list();
+  var txt;
+  var r = confirm("Är du säker på att du vill ta bort denna nod?!");
+  if (r == true) {
+    nodes_.splice(id,1);
+    destroy_all_connections(id);
+    recalculate_node_ids();
+    // destroy_all_connections(id);
+    recalculate_node_links();
+    update_nodes_list();
+  }
+
 }
 
 function recalculate_node_ids(){
