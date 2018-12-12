@@ -35,13 +35,13 @@
 
   <br/>
 
-  <div align="center">
+  <!-- <div align="center">
     <b>Layout alignment: </b>
     <input class="sankey-align" type="radio" name="sankey-align" value="left"> Left &nbsp;
     <input class="sankey-align" type="radio" name="sankey-align" value="center"> Center &nbsp;
     <input class="sankey-align" type="radio" name="sankey-align" value="right"> Right &nbsp;
     <input class="sankey-align" type="radio" name="sankey-align" value="justify" checked="checked"> Justify &nbsp;
-  </div>
+  </div> -->
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.2.0/d3.min.js"></script>
   <script src="d3-sankey.js"></script>
@@ -76,7 +76,7 @@
       .nodeWidth(15)
       .nodePadding(10)
       .size([width, height])
-      .align('justify');
+      .align('right');
 
     var path = sankey.link();
 //https://bl.ocks.org/vasturiano/b0b14f2e58fdeb0da61e62d51c649908
@@ -89,7 +89,7 @@
 //http://bl.ocks.org/FabricioRHS/80ef58d4390b06305c91fdc831844009
 //https://gist.github.com/d3noob/9bd82617061e04ad9540
 //https://bl.ocks.org/d3noob/d7800f34062b116f9ec0588f2e85e549
-    d3.json("hanna2.json", function(energy) {
+    d3.json("data.json", function(energy) {
       sankey
         .nodes(energy.nodes)
         .links(energy.links)

@@ -15,7 +15,7 @@ var colors = {
     };
 function make_sankey(){
 
-  d3.json("vistool/del.json", function(error, json) {
+  d3.json("vistool/data.json", function(error, json) {
     $('#chart').empty();
     var chart = d3.select("#chart").append("svg").chart("Sankey.Path");
     chart

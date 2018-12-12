@@ -37,6 +37,7 @@ function start_program(){
 
 
 
+//Centrala områden.
 
 function submit_node(){
   // console.log(nodes_);
@@ -81,6 +82,7 @@ function remove_link(){
 
 function edit_node(){
   // selecteD_node;
+  // Selected node is collected in a variable.
   console.log(nodes_[selecteD_node]);
 }
 
